@@ -1,32 +1,30 @@
 <?php
-//index.php
 
-if (!isset($_COOKIE["type"])) {
-	header("location:login.php");
+include_once('login/check_cookie.php');
+if (!$valid) {
+	header("location:login/login.php");
+	exit;
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>How to create PHP Login Script using Cookies</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>Alumni Engagement Recording System</title>
+	<?php include("libraries.php"); ?>
 </head>
 <body>
 <br/>
 <div class="container">
-	<h2 align="center">How to create PHP Login Script using Cookies</h2>
+	<h2 align="center">Alumni Engagement Recording System</h2>
 	<br/>
 	<div align="right">
-		<a href="logout.php">Logout</a>
+		<a href="login/logout.php">Logout</a>
 	</div>
 	<br/>
 	<?php
-	if (isset($_COOKIE["type"])) {
-		echo '<h2 align="center">Welcome User</h2>';
-	}
+	echo '<h2 align="center">Welcome ' . $user_email . '</h2>';
 	?>
 </div>
 </body>
