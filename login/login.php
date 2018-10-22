@@ -52,8 +52,7 @@ if (isset($_POST["login"])) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Alumni Engagement Recording System</title>
-	<?php include(__DIR__ . "/../libraries.php"); ?>
+	<?php include(__DIR__ . "/../content/title.php"); ?>
 </head>
 <body>
 <br/>
@@ -61,17 +60,16 @@ if (isset($_POST["login"])) {
 	<h2 align="center">Alumni Engagement Recording System</h2>
 	<br/>
 	<div class="panel panel-default">
-
 		<div class="panel-heading">Login</div>
 		<div class="panel-body">
 			<span><?php echo $message; ?></span>
 			<form method="post">
 				<div class="form-group">
-					<label>User Email</label>
+					<label for="user_email">User Email</label>
 					<input type="text" name="user_email" id="user_email" class="form-control"/>
 				</div>
 				<div class="form-group">
-					<label>Password</label>
+					<label for="user_password">Password</label>
 					<input type="password" name="user_password" id="user_password" class="form-control"/>
 				</div>
 				<div class="form-group">
@@ -85,7 +83,6 @@ if (isset($_POST["login"])) {
 	<br/>
 	<p>Admin email - john_smith@gmail.com</p>
 	<p>Admin Password - password</p>
-	<p>All user password is 'password'</p>
 </div>
 </body>
 </html>

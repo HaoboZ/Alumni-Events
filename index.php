@@ -11,8 +11,7 @@ if (!$valid) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Alumni Engagement Recording System</title>
-	<?php include("libraries.php"); ?>
+	<?php include("content/title.php"); ?>
 </head>
 <body>
 <br/>

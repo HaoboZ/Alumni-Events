@@ -26,12 +26,13 @@ if (isset($_POST["signup"])) {
 			$message = "<div class='alert alert-danger'>Email Address Already Registered</div>";
 		} else {
 			$id = uniqid();
+			$hash = password_hash($_POST["user_password"], PASSWORD_DEFAULT);
 			$query = oci_parse($connect, "
 				INSERT INTO user_info
-				VALUES (:user_email, :password, :first_name, :last_name, 'User', 'Verified')
+				VALUES (:user_email, :user_password, :first_name, :last_name, 'User', 'Verified')
 		    ");
 			oci_bind_by_name($query, ":user_email", $_POST["user_email"]);
-			oci_bind_by_name($query, ":password", password_hash($_POST["password"], PASSWORD_DEFAULT));
+			oci_bind_by_name($query, ":user_password", $hash);
 			oci_bind_by_name($query, ":first_name", $_POST["first_name"]);
 			oci_bind_by_name($query, ":last_name", $_POST["last_name"]);
 			if (!oci_execute($query)) exit;
@@ -46,8 +47,7 @@ if (isset($_POST["signup"])) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Alumni Engagement Recording System</title>
-	<?php include(__DIR__ . "/../libraries.php"); ?>
+	<?php include(__DIR__ . "/../content/title.php"); ?>
 </head>
 <body>
 <br/>
@@ -61,19 +61,19 @@ if (isset($_POST["signup"])) {
 			<span><?php echo $message; ?></span>
 			<form method="post">
 				<div class="form-group">
-					<label>User Email</label>
+					<label for="user_email">User Email</label>
 					<input type="text" name="user_email" id="user_email" class="form-control"/>
 				</div>
 				<div class="form-group">
-					<label>Password</label>
+					<label for="user_password">Password</label>
 					<input type="password" name="user_password" id="user_password" class="form-control"/>
 				</div>
 				<div class="form-group">
-					<label>First Name</label>
+					<label for="first_name">First Name</label>
 					<input type="text" name="first_name" id="first_name" class="form-control"/>
 				</div>
 				<div class="form-group">
-					<label>Last Name</label>
+					<label for="last_name">Last Name</label>
 					<input type="text" name="last_name" id="last_name" class="form-control"/>
 				</div>
 				<div class="form-group">
