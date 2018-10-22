@@ -23,7 +23,7 @@ if (!$valid) {
 	</div>
 	<br/>
 	<?php
-	echo '<h2 align="center">Welcome ' . $user_email . '</h2>';
+	echo '<h2 align="center">Welcome ' . $data['USER_EMAIL'] . '</h2>';
 	?>
 </div>
 </body>

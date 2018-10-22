@@ -10,7 +10,7 @@ if ($valid) {
 $message = '';
 
 if (isset($_POST["signup"])) {
-	if (empty($_POST["user_email"]) || empty($_POST["user_password"]) || empty($_POST["first_name"]) || empty($_POST["last_name"])) {
+	if (empty($_POST["user_email"]) || empty($_POST["user_password"]) || empty($_POST["first_name"]) || empty($_POST["last_name"]) || empty($_POST["grad_year"])) {
 		$message = "<div class='alert alert-danger'>All Fields Are Required</div>";
 	} else {
 		$query = oci_parse($connect, "
@@ -29,12 +29,13 @@ if (isset($_POST["signup"])) {
 			$hash = password_hash($_POST["user_password"], PASSWORD_DEFAULT);
 			$query = oci_parse($connect, "
 				INSERT INTO user_info
-				VALUES (:user_email, :user_password, :first_name, :last_name, 'User', 'Verified')
+				VALUES (:user_email, :user_password, :first_name, :last_name,:grad_year, 'User', 'Verified')
 		    ");
 			oci_bind_by_name($query, ":user_email", $_POST["user_email"]);
 			oci_bind_by_name($query, ":user_password", $hash);
 			oci_bind_by_name($query, ":first_name", $_POST["first_name"]);
 			oci_bind_by_name($query, ":last_name", $_POST["last_name"]);
+			oci_bind_by_name($query, ":grad_year", $_POST["grad_year"]);
 			if (!oci_execute($query)) exit;
 
 			header("location:verify.php");
@@ -54,34 +55,42 @@ if (isset($_POST["signup"])) {
 <div class="container">
 	<h2 align="center">Alumni Engagement Recording System</h2>
 	<br/>
-	<div class="panel panel-default">
-
-		<div class="panel-heading">Signup</div>
-		<div class="panel-body">
-			<span><?php echo $message; ?></span>
-			<form method="post">
-				<div class="form-group">
-					<label for="user_email">User Email</label>
-					<input type="text" name="user_email" id="user_email" class="form-control"/>
-				</div>
-				<div class="form-group">
-					<label for="user_password">Password</label>
-					<input type="password" name="user_password" id="user_password" class="form-control"/>
-				</div>
-				<div class="form-group">
-					<label for="first_name">First Name</label>
-					<input type="text" name="first_name" id="first_name" class="form-control"/>
-				</div>
-				<div class="form-group">
-					<label for="last_name">Last Name</label>
-					<input type="text" name="last_name" id="last_name" class="form-control"/>
-				</div>
-				<div class="form-group">
-					<input type="submit" name="signup" id="signup" class="btn btn-info" value="Signup"/>
-				</div>
-			</form>
+	<h4>Signup</h4>
+	<span><?php echo $message; ?></span>
+	<form method="post">
+		<div class="form-group">
+			<label for="user_email">User Email</label>
+			<input type="text" name="user_email" id="user_email" class="form-control"/>
 		</div>
-	</div>
+		<div class="form-group">
+			<label for="user_password">Password</label>
+			<input type="password" name="user_password" id="user_password" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="first_name">First Name</label>
+			<input type="text" name="first_name" id="first_name" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="last_name">Last Name</label>
+			<input type="text" name="last_name" id="last_name" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="grad_year">Graduation Year</label>
+			<select name="grad_year" id="grad_year">
+				<option value="">Select Year</option>
+				<?php
+				for ($i = 1950; $i < date('Y'); $i++) {
+					echo '<option value=\"' . $i . '\">' . $i . '</option>';
+				}
+				?>
+			</select>
+		</div>
+		<div class="form-group">
+			<input type="submit" name="signup" id="signup" class="btn btn-info" value="Signup"/>
+			<input type="button" class="btn btn-info" onClick="window.location = './login.php'"
+			       value="Back"/>
+		</div>
+	</form>
 </div>
 </body>
 </html>

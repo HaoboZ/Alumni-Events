@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Alumni Engagement Recording System</title>
-	<?php include(__DIR__ . "/../libraries.php"); ?>
+	<?php include(__DIR__ . "/../content/title.php"); ?>
 </head>
 <body>
 <br/>

@@ -59,27 +59,23 @@ if (isset($_POST["login"])) {
 <div class="container">
 	<h2 align="center">Alumni Engagement Recording System</h2>
 	<br/>
-	<div class="panel panel-default">
-		<div class="panel-heading">Login</div>
-		<div class="panel-body">
-			<span><?php echo $message; ?></span>
-			<form method="post">
-				<div class="form-group">
-					<label for="user_email">User Email</label>
-					<input type="text" name="user_email" id="user_email" class="form-control"/>
-				</div>
-				<div class="form-group">
-					<label for="user_password">Password</label>
-					<input type="password" name="user_password" id="user_password" class="form-control"/>
-				</div>
-				<div class="form-group">
-					<input type="submit" name="login" id="login" class="btn btn-info" value="Login"/>
-					<input type="button" class="btn btn-info" onClick="window.location = './signup.php'"
-					       value="Signup"/>
-				</div>
-			</form>
+	<h4>Login</h4>
+	<span><?php echo $message; ?></span>
+	<form method="post">
+		<div class="form-group">
+			<label for="user_email">User Email</label>
+			<input type="text" name="user_email" id="user_email" class="form-control"/>
 		</div>
-	</div>
+		<div class="form-group">
+			<label for="user_password">Password</label>
+			<input type="password" name="user_password" id="user_password" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<input type="submit" name="login" id="login" class="btn btn-info" value="Login"/>
+			<input type="button" class="btn btn-info" onClick="window.location = './signup.php'"
+			       value="Signup"/>
+		</div>
+	</form>
 	<br/>
 	<p>Admin email - john_smith@gmail.com</p>
 	<p>Admin Password - password</p>

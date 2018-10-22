@@ -3,7 +3,7 @@
 include_once(__DIR__ . "/../database/database_connection.php");
 
 $valid = false;
-$user_email = '';
+$data = array();
 
 // checks that the cookie has a valid session id to log in
 if (isset($_COOKIE["login_session"])) {
@@ -18,6 +18,6 @@ if (isset($_COOKIE["login_session"])) {
 	$res = oci_fetch_assoc($query);
 	if ($res) {
 		$valid = true;
-		$user_email = $res['USER_EMAIL'];
+		$data = $res;
 	}
 }
