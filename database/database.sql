@@ -1,5 +1,9 @@
+DROP TABLE event_participants;
+DROP TABLE event_tags;
+DROP TABLE events;
 DROP TABLE login_session;
 DROP TABLE user_info;
+
 
 CREATE TABLE user_info (
 	user_email      VARCHAR(200) PRIMARY KEY,
@@ -11,10 +15,15 @@ CREATE TABLE user_info (
 	user_status     VARCHAR(8) CHECK (user_status IN ('Verified', 'Unverified'))
 );
 
-INSERT INTO user_info VALUES
-	('john_smith@gmail.com', '$2y$10$cHpf3TzonURXDENRiRF0de1ycSfnM4NJ27sdwyUCf5L.sewDlkCBe', 'John', 'Smith', 2018,
-	 'Admin',
-	 'Verified');
+INSERT INTO user_info VALUES	(
+  'john_smith@gmail.com',
+  '$2y$10$cHpf3TzonURXDENRiRF0de1ycSfnM4NJ27sdwyUCf5L.sewDlkCBe',
+  'John',
+  'Smith',
+  2018,
+  'Admin',
+  'Verified'
+);
 
 CREATE TABLE login_session (
 	session_key VARCHAR(16) PRIMARY KEY,
@@ -31,6 +40,17 @@ CREATE TABLE events (
 	event_location      VARCHAR(200),
 	event_info          VARCHAR(1000),
 	event_approved      NUMBER(1)
+);
+
+INSERT INTO events VALUES (
+  '1',
+  'john_smith@gmail.com',
+  CURRENT_DATE,
+  'example event',
+  CURRENT_DATE,
+  'a place',
+  'some random info',
+  1
 );
 
 CREATE TABLE event_tags (

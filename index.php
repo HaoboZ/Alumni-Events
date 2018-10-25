@@ -20,7 +20,7 @@ if (!$valid) {
     <button>Add Event</button>
     <?php
     if ($data["USER_TYPE"] == 'Admin') {
-        echo '<button>Add Event</button>';
+        echo '<button>Edit Event</button>';
     }
     ?>
 </div>
