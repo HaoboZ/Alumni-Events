@@ -53,8 +53,7 @@ if (isset($_POST["signup"])) {
 <body>
 <br/>
 <div class="container">
-	<h2 align="center">Alumni Engagement Recording System</h2>
-	<br/>
+	<?php include(__DIR__ . "/../content/header.php"); ?>
 	<h4>Signup</h4>
 	<span><?php echo $message; ?></span>
 	<form method="post">

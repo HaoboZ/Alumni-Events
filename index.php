@@ -16,8 +16,7 @@ if (!$valid) {
 <body>
 <br/>
 <div class="container">
-	<h2 align="center">Alumni Engagement Recording System</h2>
-	<br/>
+	<?php include("content/header.php"); ?>
 	<div align="right">
 		<a href="login/logout.php">Logout</a>
 	</div>
