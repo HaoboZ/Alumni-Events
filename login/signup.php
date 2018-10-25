@@ -29,7 +29,7 @@ if (isset($_POST["signup"])) {
 			$hash = password_hash($_POST["user_password"], PASSWORD_DEFAULT);
 			$query = oci_parse($connect, "
 				INSERT INTO user_info
-				VALUES (:user_email, :user_password, :first_name, :last_name,:grad_year, 'User', 'Verified')
+				VALUES (:user_email, :user_password, :first_name, :last_name, :grad_year, 'User', 'Verified')
 		    ");
 			oci_bind_by_name($query, ":user_email", $_POST["user_email"]);
 			oci_bind_by_name($query, ":user_password", $hash);

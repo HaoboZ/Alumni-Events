@@ -18,4 +18,4 @@
 
 ## Website
 
-http://students.engr.scu.edu/~\*\*username\*\*/COEN174/index.php
+students.engr.scu.edu/~\*\*username\*\*/COEN174
