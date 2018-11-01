@@ -27,18 +27,18 @@ CREATE TABLE events (
 	event_time         DATE,
 	event_location     VARCHAR(200),
 	event_info         VARCHAR(1000),
+	creator_email      VARCHAR(200),
 	creator_first_name VARCHAR(100),
 	creator_last_name  VARCHAR(100),
-	creator_email      VARCHAR(200),
-	creator_date       DATE,
 	creator_grad_year  NUMBER(4),
+	creator_date       DATE,
 	event_approved     NUMBER(1),
 	event_code         VARCHAR(10)
 );
 
 INSERT INTO events (
 	event_id, event_name, event_time, event_location, event_info,
-	creator_email, creator_date,
+	creator_date,
 	event_approved
 ) VALUES (
 	'1',
@@ -46,7 +46,6 @@ INSERT INTO events (
 	CURRENT_DATE,
 	'a place',
 	'some random info',
-	'john_smith@gmail.com',
 	CURRENT_DATE,
 	1
 );

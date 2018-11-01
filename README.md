@@ -20,22 +20,10 @@
 
 students.engr.scu.edu/~\*\*username\*\*/COEN174
 
-## Design
+## TODO
 
-* admin
-	* main
-	    * calendar
-	    * pending events
-	* events
-	    * list
-	* single
-	    * delete
-	    * modify
-	    * view participants
-* user
-	* main
-	    * calendar
-	* events
-	    * list
-	* single
-	    * participate
+* admin sees all events, approve alumni created ones
+* alumni events need processing
+* add checklist next to alumni participants to verify them
+* admin edit events
+* calendar

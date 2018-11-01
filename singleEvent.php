@@ -39,9 +39,9 @@ if (!$event)
 		. 'Info: ' . $event['EVENT_INFO'] . '<br/>'
 		. '<br/>';
 	if ($event['CREATOR_EMAIL'])
-		echo 'Creator: ' . $event['CREATOR_FIRST_NAME'] . ' ' . $event['CREATOR_LAST_NAME'] . '<br/>'
-			. 'Date Created: ' . $event['CREATOR_DATE'] . '<br/>'
-			. '</div>';
+		echo 'Creator: ' . $event['CREATOR_FIRST_NAME'] . ' ' . $event['CREATOR_LAST_NAME'] . '<br/>';
+	echo 'Date Created: ' . $event['CREATOR_DATE'] . '<br/>'
+		. '</div>';
 
 	if ($admin) {
 		$query = oci_parse($connect, "
@@ -55,16 +55,14 @@ if (!$event)
 
 		echo '<br/>Participants:</br>';
 		if (!$res)
-			echo 'None';
+			echo 'None<br/><br>';
 		else {
 			echo '<ul>';
 			do {
-				echo '<li>' . $res["USER_FIRST_NAME"] . ' ' . $res["USER_LAST_NAME"] . '</li>';
+				echo '<li>Name: ' . $res["USER_FIRST_NAME"] . ' ' . $res["USER_LAST_NAME"] . '<br/>Grad Year: ' . $res["USER_GRAD_YEAR"] . '</li>';
 			} while ($res = oci_fetch_assoc($query));
 			echo '</ul>';
 		}
-
-		echo '<br/><br>';
 
 		if ($event["EVENT_CODE"] == "")
 			echo '<button class="btn" onclick="window.location.replace(\'' . $home . '/content/generate.php?id=' . $event["EVENT_ID"] . '\')">

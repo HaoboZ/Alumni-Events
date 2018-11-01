@@ -36,6 +36,7 @@ if (isset($_POST["checkin"])) {
 				oci_bind_by_name($query, ":first_name", $_POST["first_name"]);
 				oci_bind_by_name($query, ":last_name", $_POST["last_name"]);
 				$grad_year = intval($_POST["grad_year"]);
+
 				oci_bind_by_name($query, ":grad_year",$grad_year );
 				if (!oci_execute($query)) exit;
 

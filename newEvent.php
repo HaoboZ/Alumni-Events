@@ -73,7 +73,7 @@ if (isset($_POST)) {
 <div class="container">
 	<?php include("content/header.php"); ?>
 
-	<? echo $message ?>
+	<?php echo $message; ?>
 
 	<form role="form" enctype="multipart/form-data" id="NewEventFormSubmit" action="newEvent.php" method="post">
 
