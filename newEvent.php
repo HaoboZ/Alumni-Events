@@ -31,7 +31,7 @@ if (isset($_POST)) {
 }
 
 include_once("database/database_connection.php");
-include_once('login/check_cookie.php');
+include_once('login/check.php');
 
 $sql = oci_parse($connect, "SELECT COUNT('event_id') as num FROM events");
 
@@ -40,17 +40,17 @@ $eventId = $row['id'] + 1;
 
 $curDate = date('yyyy-mm-dd');
 
-$query = oci_parse($connect, "INSERT INTO events VALUES(:id, :eventName, :eventDate, :eventLocation, :eventDescription, :firstName, :lastName, :email, :curDate, :gradYear, 1, 1)");
+$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved) VALUES(:id, :eventName, :eventDate, :eventLocation, :eventDescription, :firstName, :lastName, :email, :curDate, :gradYear, 1)");
 oci_bind_by_name($query, ":id", $eventId);
-oci_bind_by_name($query, ":email", $email);
+/*oci_bind_by_name($query, ":email", $email);*/
 oci_bind_by_name($query, ":curDate", $curDate);
 oci_bind_by_name($query, ":eventName", $eventName);
 oci_bind_by_name($query, ":eventDate", $date);
 oci_bind_by_name($query, ":EventLocation", $location);
 oci_bind_by_name($query, ":eventDescription", $description);
-oci_bind_by_name($query, ":firstName", $firstName);
+/*oci_bind_by_name($query, ":firstName", $firstName);
 oci_bind_by_name($query, ":lastName", $lastName);
-oci_bind_by_name($query, ":gradYear", $gradYear);
+oci_bind_by_name($query, ":gradYear", $gradYear);*/
 if (!oci_execute($query)) exit;
 
 $res = oci_execute($query);
