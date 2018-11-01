@@ -1,5 +1,5 @@
 copy_haobo:
-	cp -r * /webpages/hzhang/COEN174
+	scp -r * hzhang@linux.scudc.scu.edu:/webpages/hzhang/COEN174
 
 copy_alfredo:
 	scp -r * salfredo@linux.scudc.scu.edu:/webpages/salfredo/COEN174

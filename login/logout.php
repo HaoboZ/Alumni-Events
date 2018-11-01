@@ -1,8 +1,8 @@
 <?php
 
-include('check_cookie.php');
+include('check.php');
 
-if ($valid) {
+if ($admin) {
 	$query = oci_parse($connect, "
 		DELETE FROM login_session
 		WHERE session_key = :session_key

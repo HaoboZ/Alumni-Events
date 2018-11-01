@@ -6,23 +6,13 @@ DROP TABLE user_info;
 
 
 CREATE TABLE user_info (
-	user_email      VARCHAR(200) PRIMARY KEY,
-	user_password   VARCHAR(200),
-	user_first_name VARCHAR(100),
-	user_last_name  VARCHAR(100),
-	user_grad_year  NUMBER(4),
-	user_type       VARCHAR(5) CHECK (user_type IN ('Admin', 'User')),
-	user_status     VARCHAR(8) CHECK (user_status IN ('Verified', 'Unverified'))
+	user_email    VARCHAR(200) PRIMARY KEY,
+	user_password VARCHAR(200)
 );
 
-INSERT INTO user_info VALUES	(
-  'john_smith@gmail.com',
-  '$2y$10$cHpf3TzonURXDENRiRF0de1ycSfnM4NJ27sdwyUCf5L.sewDlkCBe',
-  'John',
-  'Smith',
-  2018,
-  'Admin',
-  'Verified'
+INSERT INTO user_info VALUES (
+	'john_smith@gmail.com',
+	'$2y$10$cHpf3TzonURXDENRiRF0de1ycSfnM4NJ27sdwyUCf5L.sewDlkCBe'
 );
 
 CREATE TABLE login_session (
@@ -32,25 +22,33 @@ CREATE TABLE login_session (
 );
 
 CREATE TABLE events (
-	event_id            VARCHAR(16) PRIMARY KEY,
-	user_email          VARCHAR(200) REFERENCES user_info (user_email),
-	event_creation_date DATE,
-	event_name          VARCHAR(100),
-	event_time          DATE,
-	event_location      VARCHAR(200),
-	event_info          VARCHAR(1000),
-	event_approved      NUMBER(1)
+	event_id           VARCHAR(16) PRIMARY KEY,
+	event_name         VARCHAR(100),
+	event_time         DATE,
+	event_location     VARCHAR(200),
+	event_info         VARCHAR(1000),
+	creator_first_name VARCHAR(100),
+	creator_last_name  VARCHAR(100),
+	creator_email      VARCHAR(200),
+	creator_date       DATE,
+	creator_grad_year  NUMBER(4),
+	event_approved     NUMBER(1),
+	event_code         VARCHAR(10)
 );
 
-INSERT INTO events VALUES (
-  '1',
-  'john_smith@gmail.com',
-  CURRENT_DATE,
-  'example event',
-  CURRENT_DATE,
-  'a place',
-  'some random info',
-  1
+INSERT INTO events (
+	event_id, event_name, event_time, event_location, event_info,
+	creator_email, creator_date,
+	event_approved
+) VALUES (
+	'1',
+	'example event',
+	CURRENT_DATE,
+	'a place',
+	'some random info',
+	'john_smith@gmail.com',
+	CURRENT_DATE,
+	1
 );
 
 CREATE TABLE event_tags (
@@ -60,7 +58,10 @@ CREATE TABLE event_tags (
 );
 
 CREATE TABLE event_participants (
-	event_id   VARCHAR(16) REFERENCES events (event_id),
-	user_email VARCHAR(200) REFERENCES user_info (user_email),
+	event_id        VARCHAR(16) REFERENCES events (event_id),
+	user_email      VARCHAR(200),
+	user_first_name VARCHAR(100),
+	user_last_name  VARCHAR(100),
+	user_grad_year  NUMBER(4),
 	PRIMARY KEY (event_id, user_email)
 );

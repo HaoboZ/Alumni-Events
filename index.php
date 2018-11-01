@@ -1,17 +1,11 @@
 <?php
-
-include_once('login/check_cookie.php');
-if (!$valid) {
-    header("location:login/login.php");
-    exit;
-}
-
+include_once('login/check.php');
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include("content/title.php"); ?>
+	<?php include("content/title.php"); ?>
 </head>
 <body>
 <br/>
@@ -19,9 +13,6 @@ if (!$valid) {
     <?php include("content/header.php"); ?>
     <button id="newEvent">Add Event</button>
     <?php
-    if ($data["USER_TYPE"] == 'Admin') {
-        echo '<button>Edit Event</button>';
-    }
     ?>
 </div>
 
