@@ -30,37 +30,37 @@ if (isset($_POST)) {
 	}
 
 
-include_once("database/database_connection.php");
-include_once('login/check.php');
+	include_once("database/database_connection.php");
+	include_once('login/check.php');
 
-$sql = oci_parse($connect, "SELECT COUNT('event_id') as num FROM events");
-oci_execute($sql);
+	$sql = oci_parse($connect, "SELECT COUNT('event_id') as num FROM events");
+	oci_execute($sql);
 
-$row = oci_fetch_assoc($sql);
-$eventId = $row['NUM'] + 1;
+	$row = oci_fetch_assoc($sql);
+	$eventId = $row['NUM'] + 1;
 
-$curDate = date('Y-m-d');
+	$curDate = date('Y-m-d');
 
-$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
+	$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
 											VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-mm-dd'), :eventLocation, :eventDescription, TO_DATE(:curDate, 'yyyy-mm-dd'), 1)");
-oci_bind_by_name($query, ":id", $eventId);
-/*oci_bind_by_name($query, ":email", $email);*/
-oci_bind_by_name($query, ":eventName", $eventName);
-oci_bind_by_name($query, ":eventDate", $date);
+	oci_bind_by_name($query, ":id", $eventId);
+	/*oci_bind_by_name($query, ":email", $email);*/
+	oci_bind_by_name($query, ":eventName", $eventName);
+	oci_bind_by_name($query, ":eventDate", $date);
 
-oci_bind_by_name($query, ":eventLocation", $location);
-oci_bind_by_name($query, ":eventDescription", $description);
-oci_bind_by_name($query, ":curDate", $curDate);
-/*oci_bind_by_name($query, ":firstName", $firstName);
-oci_bind_by_name($query, ":lastName", $lastName);
-oci_bind_by_name($query, ":gradYear", $gradYear);*/
+	oci_bind_by_name($query, ":eventLocation", $location);
+	oci_bind_by_name($query, ":eventDescription", $description);
+	oci_bind_by_name($query, ":curDate", $curDate);
+	/*oci_bind_by_name($query, ":firstName", $firstName);
+	oci_bind_by_name($query, ":lastName", $lastName);
+	oci_bind_by_name($query, ":gradYear", $gradYear);*/
 // echo $date;
 // echo '<br>';
 // echo $curDate;
 
-if (!oci_execute($query)) exit;
+	if (!oci_execute($query)) exit;
 
-$message = '<div class="alert alert-success">Event successfuly created!</div>';
+	$message = '<div class="alert alert-success">Event successfuly created!</div>';
 }
 ?>
 
@@ -85,12 +85,12 @@ $message = '<div class="alert alert-success">Event successfuly created!</div>';
 				<div class="form-group">
 					<label for="eventName">Name of event</label>
 					<input type="text" name="eventName" id="eventName" class="form-control"
-							placeholder="Name of the event" required>
+					       placeholder="Name of the event" required>
 				</div>
 				<div class="form-group">
 					<label for="objective">Event Description</label>
 					<textarea name="description" id="description" class="form-control"
-								placeholder="Description" required></textarea>
+					          placeholder="Description" required></textarea>
 				</div>
 			</div>
 
@@ -101,7 +101,7 @@ $message = '<div class="alert alert-success">Event successfuly created!</div>';
 				<div class="form-group input-group date" id='date'>
 					<label for="date">Event date</label>
 					<input type="date" name="date" id="date" class="form-control"
-							min="2018-01-01" max="2020-12-31" required/>
+					       min="2018-01-01" max="2020-12-31" required/>
 				</div>
 				<div class="form-group input-group time" id='time'>
 					<label for="time">Event time</label>
@@ -123,7 +123,7 @@ $message = '<div class="alert alert-success">Event successfuly created!</div>';
 				<div class="form-group">
 					<label for="location">Location of event</label>
 					<input type="text" name="location" id="location" class="form-control"
-							placeholder="Location of the event" required>
+					       placeholder="Location of the event" required>
 				</div>
 			</div>
 			<?php
@@ -154,7 +154,6 @@ $message = '<div class="alert alert-success">Event successfuly created!</div>';
 		<button type="submit" id="addEvent" class="btn btn-success">Add Event</button>
 		<div style="height: 100px;"></div>
 	</form>
-
 
 
 </div>
