@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . "../variables.php");
+include_once(__DIR__ . "/../variables.php");
 ?>
 <nav class="navbar navbar-expand-sm bg-light">
     <a class="navbar-brand" href="<?php echo $home ?>">Alumni Engagement Recording System</a>
