@@ -21,6 +21,22 @@ if (isset($_GET['id'])) {
 	<?php
 	include("content/header.php");
 	?>
+	<?php
+
+	$query = oci_parse($connect, "
+			SELECT * FROM events
+			");
+	$message = '';
+	if (!oci_execute($query)) $message = 'sql error';
+	echo $message;
+	if ($message != '') {
+		echo '<ul>';
+		while ($event = oci_fetch_assoc($query)) {
+			echo '<a href="' . '?' . $event["EVENT_ID"] . '"' . '>' . $event["EVENT_NAME"] . '</a>';
+		}
+		echo '</ul>';
+	}
+	?>
 </div>
 </body>
 </html>

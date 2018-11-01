@@ -33,10 +33,11 @@ if (!$event)
 		. 'Time: ' . $event['EVENT_TIME'] . '<br/>'
 		. 'Location: ' . $event['EVENT_LOCATION'] . '<br/>'
 		. 'Info: ' . $event['EVENT_INFO'] . '<br/>'
-		. '<br/>'
-		. 'Creator: ' . $event['CREATOR_EMAIL'] . '<br/>'
-		. 'Date Created: ' . $event['CREATOR_DATE'] . '<br/>'
-		. '</div>';
+		. '<br/>';
+	if ($event['CREATOR_EMAIL'])
+		echo 'Creator: ' . $event['CREATOR_FIRST_NAME'] . ' ' . $event['CREATOR_LAST_NAME'] . '<br/>'
+			. 'Date Created: ' . $event['CREATOR_DATE'] . '<br/>'
+			. '</div>';
 
 	if ($admin) {
 		$query = oci_parse($connect, "
