@@ -70,10 +70,11 @@ if (isset($_POST["login"])) {
 			<input type="password" name="user_password" id="user_password" class="form-control"/>
 		</div>
 		<div class="form-group">
-			<input type="submit" name="login" id="login" class="btn btn-info" value="Login"/>
-			<input type="button" class="btn btn-info" onClick="window.location = './signup.php'"
+			<input type="submit" name="login" id="login" class="btn" value="Login"/>
+			<input type="button" class="btn" onClick="window.location = './signup.php'"
 			       value="Signup"/>
 		</div>
+        <script>console.log('message')</script>
 	</form>
 	<br/>
 	<p>Admin email - john_smith@gmail.com</p>
