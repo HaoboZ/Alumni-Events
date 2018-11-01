@@ -53,14 +53,14 @@ if (!$event)
 		if (!$res)
 			echo 'None';
 		else {
-			echo '<div>';
+			echo '<ul>';
 			do {
-				echo $res["USER_FIRST_NAME"] . ' ' . $res["USER_LAST_NAME"] . '<br/>';
+				echo '<li>' . $res["USER_FIRST_NAME"] . ' ' . $res["USER_LAST_NAME"] . '</li>';
 			} while ($res = oci_fetch_assoc($query));
-			echo '</div>';
+			echo '</ul>';
 		}
 
-		echo '<br/>';
+		echo '<br/><br>';
 
 		if ($event["EVENT_CODE"] == "")
 			echo '<button class="btn" onclick="window.location.replace(\'' . $home . '/content/generate.php?id=' . $event["EVENT_ID"] . '\')">

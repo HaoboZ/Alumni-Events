@@ -11,7 +11,7 @@ include_once('login/check.php');
 <br/>
 <div class="container">
 	<?php include("content/header.php"); ?>
-	<button onclick="window.location.replace('<?php echo $home; ?>/newEvent.php">Add Event</button>
+	<button onclick="window.location.replace('<?php echo $home; ?>/newEvent.php')">Add Event</button>
 	<?php
 	?>
 </div>

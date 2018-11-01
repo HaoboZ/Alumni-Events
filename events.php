@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
 	echo $message;
 	echo '<ul>';
 	while ($event = oci_fetch_assoc($query)) {
-		echo '<a href="' . '?' . $event["EVENT_ID"] . '"' . '>' . $event["EVENT_NAME"] . '</a>';
+		echo '<a href="' . '?id=' . $event["EVENT_ID"] . '"' . '>' . $event["EVENT_NAME"] . '</a><br>';
 	}
 	echo '</ul>';
 	?>
