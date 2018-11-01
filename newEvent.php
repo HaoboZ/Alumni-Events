@@ -38,9 +38,9 @@ $sql = oci_parse($connect, "SELECT COUNT('event_id') as num FROM events");
 $row = oci_execute($sql);
 $eventId = $row['id'] + 1;
 
-$curDate = date('mm/dd/yyyy');
+$curDate = date('yyyy-mm-dd');
 
-$query = oci_parse($connect, "INSERT INTO events VALUES(:id, :email, :curDate, :eventName, :eventDate, :eventLocation, :eventDescription, 1)");
+$query = oci_parse($connect, "INSERT INTO events VALUES(:id, :eventName, :eventDate, :eventLocation, :eventDescription, :firstName, :lastName, :email, :curDate, :gradYear, 1, 1)");
     oci_bind_by_name($query, ":id", $eventId);
     oci_bind_by_name($query, ":email", $email);
     oci_bind_by_name($query, ":curDate", $curDate);
@@ -48,6 +48,9 @@ $query = oci_parse($connect, "INSERT INTO events VALUES(:id, :email, :curDate, :
     oci_bind_by_name($query, ":eventDate", $date);
     oci_bind_by_name($query, ":EventLocation", $location);
     oci_bind_by_name($query, ":eventDescription", $description);
+    oci_bind_by_name($query, ":firstName", $firstName);
+    oci_bind_by_name($query, ":lastName", $lastName);
+    oci_bind_by_name($query, ":gradYear", $gradYear);
 	if (!oci_execute($query)) exit;
 	
 	$res = oci_execute($query);
