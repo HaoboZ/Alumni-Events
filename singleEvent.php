@@ -28,6 +28,10 @@ if (!$event)
 	include("content/header.php");
 	?>
 	<?php
+	if ($message) {
+		echo $message;
+		exit;
+	}
 	echo '<h5>' . $event['EVENT_NAME'] . '</h5>';
 	echo '<div>'
 		. 'Time: ' . $event['EVENT_TIME'] . '<br/>'
