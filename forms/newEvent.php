@@ -1,6 +1,6 @@
 <?php
 $message = "";
-if (isset($_POST)) {
+if (isset($_POST['addEvent'])) {
 	if (isset($_POST['eventName'])) {
 		$eventName = $_POST['eventName'];
 	}
@@ -30,8 +30,8 @@ if (isset($_POST)) {
 	}
 
 
-	include_once("database/database_connection.php");
-	include_once('login/check.php');
+	include_once("../database/database_connection.php");
+	include_once('../login/check.php');
 
 	$sql = oci_parse($connect, "SELECT COUNT('event_id') as num FROM events");
 	oci_execute($sql);
@@ -42,7 +42,8 @@ if (isset($_POST)) {
 	$curDate = date('Y-m-d');
 
 	$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
-											VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-mm-dd'), :eventLocation, :eventDescription, TO_DATE(:curDate, 'yyyy-mm-dd'), 1)");
+		VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-mm-dd'), :eventLocation, :eventDescription, TO_DATE(:curDate, 'yyyy-mm-dd'), 1)
+	");
 	oci_bind_by_name($query, ":id", $eventId);
 	/*oci_bind_by_name($query, ":email", $email);*/
 	oci_bind_by_name($query, ":eventName", $eventName);
@@ -67,15 +68,15 @@ if (isset($_POST)) {
 <!DOCTYPE html>
 <html>
 <head>
-	<?php include("content/title.php"); ?>
+	<?php include("../content/title.php"); ?>
 </head>
 <body>
 <div class="container">
-	<?php include("content/header.php"); ?>
+	<?php include("../content/header.php"); ?>
 
 	<?php echo $message; ?>
 
-	<form role="form" enctype="multipart/form-data" id="NewEventFormSubmit" action="newEvent.php" method="post">
+	<form method="post">
 
 		<div class="panel panel-info">
 			<div class="panel-heading">
@@ -128,30 +129,10 @@ if (isset($_POST)) {
 			</div>
 			<?php
 			if (!$admin)
-				echo '<div class="panel-heading">
-				<h3 class="panel-title" style="font-weight: bold">Contact Info</h3>
-			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<label for="firstName">First Name</label>
-					<input type="text" name="firstName" id="firstName" class="form-control" placeholder="Your first name" required>
-				</div>
-				<div class="form-group">
-					<label for="lastName">Last Name</label>
-					<input type="text" name="lastName" id="lastName" class="form-control" placeholder="Your last name" required>
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" name="email" id="email" class="form-control" placeholder="Your email" required>
-				</div>
-				<div class="form-group">
-					<label for="gradYear">Graduation Year</label>
-					<input type="number" name="gradYear" id="gradYear" class="form-control" placeholder="Year of your graduation" required>
-				</div>
-			</div>';
+				include('./userInfo.php');
 			?>
 		</div>
-		<button type="submit" id="addEvent" class="btn btn-success">Add Event</button>
+		<button type="submit" name="addEvent" class="btn btn-success">Add Event</button>
 		<div style="height: 100px;"></div>
 	</form>
 

@@ -7,7 +7,7 @@ include_once(__DIR__ . "/../login/check.php");
 	<a class="navbar-brand" href="<?php echo $home ?>">Alumni Engagement Recording System</a>
 	<ul class="navbar-nav">
 		<li class="nav-item active">
-			<a class="nav-link" href="<?php echo $home ?>/events.php">Events</a>
+			<a class="nav-link" href="<?php echo $home ?>/events/events.php">Events</a>
 		</li>
 		<li class="nav-item active">
 			<?php

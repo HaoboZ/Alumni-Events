@@ -37,7 +37,7 @@ if (isset($_POST["checkin"])) {
 				oci_bind_by_name($query, ":last_name", $_POST["last_name"]);
 				$grad_year = intval($_POST["grad_year"]);
 
-				oci_bind_by_name($query, ":grad_year",$grad_year );
+				oci_bind_by_name($query, ":grad_year", $grad_year);
 				if (!oci_execute($query)) exit;
 
 				$message2 = "<div class='alert alert-success'>You have been checked in</div>";
@@ -51,29 +51,7 @@ if (isset($_POST["checkin"])) {
 
 <span><?php echo $message2; ?></span>
 <form method="post">
-	<div class="form-group">
-		<label for="user_email">User Email</label>
-		<input type="text" name="user_email" id="user_email" class="form-control"/>
-	</div>
-	<div class="form-group">
-		<label for="first_name">First Name</label>
-		<input type="text" name="first_name" id="first_name" class="form-control"/>
-	</div>
-	<div class="form-group">
-		<label for="last_name">Last Name</label>
-		<input type="text" name="last_name" id="last_name" class="form-control"/>
-	</div>
-	<div class="form-group">
-		<label for="grad_year">Graduation Year</label>
-		<select name="grad_year" id="grad_year">
-			<option value="">Select Year</option>
-			<?php
-			for ($i = 1950; $i < date('Y'); $i++) {
-				echo '<option value=\"' . $i . '\">' . $i . '</option>';
-			}
-			?>
-		</select>
-	</div>
+	<?php include('../forms/userInfo.php'); ?>
 	<div class="form-group">
 		<label for="event_code">Event Code</label>
 		<input type="text" name="event_code" id="event_code" class="form-control"/>

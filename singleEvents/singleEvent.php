@@ -18,14 +18,14 @@ if (!$event)
 <html>
 <head>
 	<?php
-	include("content/title.php");
+	include("../content/title.php");
 	?>
 </head>
 <body>
 <br/>
 <div class="container">
 	<?php
-	include("content/header.php");
+	include("../content/header.php");
 	?>
 	<?php
 	if ($message) {
@@ -65,7 +65,7 @@ if (!$event)
 		}
 
 		if ($event["EVENT_CODE"] == "")
-			echo '<button class="btn" onclick="window.location.replace(\'' . $home . '/content/generate.php?id=' . $event["EVENT_ID"] . '\')">
+			echo '<button class="btn" onclick="window.location.replace(\'' . $home . '/singleEvents/generate.php?id=' . $event["EVENT_ID"] . '\')">
 				Generate Code
 			</button>';
 		else
