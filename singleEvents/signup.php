@@ -29,7 +29,7 @@ if (isset($_POST["checkin"])) {
 			} else {
 				$query = oci_parse($connect, "
 				INSERT INTO event_participants
-				VALUES (:event_id, :user_email, :first_name, :last_name, :grad_year)
+				VALUES (:event_id, :user_email, :first_name, :last_name, :grad_year, 0)
 		    ");
 				oci_bind_by_name($query, ":event_id", $_GET["id"]);
 				oci_bind_by_name($query, ":user_email", $_POST["user_email"]);

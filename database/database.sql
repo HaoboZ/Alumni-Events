@@ -62,5 +62,6 @@ CREATE TABLE event_participants (
 	user_first_name VARCHAR(100),
 	user_last_name  VARCHAR(100),
 	user_grad_year  NUMBER(4),
+	verified        NUMBER(1),
 	PRIMARY KEY (event_id, user_email)
 );

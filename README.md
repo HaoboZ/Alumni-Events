@@ -27,7 +27,7 @@ students.engr.scu.edu/~\*\*username\*\*/COEN174
     - [ ] alumni events need processing
     - [ ] filter
 * single events page - Haobo
-    - [ ] add checklist next to alumni participants to verify them
+    - [x] add checklist next to alumni participants to verify them
     - [x] display event
     - [x] check in event
 * calendar - Haobo
