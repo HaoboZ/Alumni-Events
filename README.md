@@ -23,21 +23,22 @@ students.engr.scu.edu/~\*\*username\*\*/COEN174
 ## TODO
 
 * events page - Haobo
-    - [ ] admin sees all events, approve alumni created ones
-    - [ ] alumni events need processing
-    - [ ] filter
+    - [x] admin sees all events
+    - [x] alumni events need processing
+    - [x] filter
 * single events page - Haobo
     - [x] add checklist next to alumni participants to verify them
     - [x] display event
     - [x] check in event
+    - [x] approve alumni created ones
 * calendar - Haobo
-    - [ ] display
+    - [x] display
 * engine - Haobo
     - [x] login
 * admin controls - Alfredo
     - [x] post event
     - [ ] view full event reports
-    - [ ] verify alumni 
+    - [ ] verify alumni
 * fixing up forms - Alfredo
     - [x] add events
     - [ ] edit events (for admins)

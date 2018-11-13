@@ -17,16 +17,12 @@ if (!$event)
 <!DOCTYPE html>
 <html>
 <head>
-	<?php
-	include("../content/title.php");
-	?>
+	<?php include("../content/title.php"); ?>
 </head>
 <body>
 <br/>
 <div class="container">
-	<?php
-	include("../content/header.php");
-	?>
+	<?php include("../content/header.php"); ?>
 	<?php
 	if ($message) {
 		echo $message;
@@ -35,6 +31,9 @@ if (!$event)
 	include('eventInfo.php');
 
 	if ($admin) {
+		echo '<button class="btn" onclick="window.location.replace(\'' . $home . '/forms/editEvent.php?id=' . $event["EVENT_ID"] . '\')">
+				Edit Event
+			</button>';
 		if (!$event["EVENT_APPROVED"]) {
 			echo '<button class="btn" onclick="window.location.replace(\'' . $home . '/singleEvents/approved.php?id=' . $event["EVENT_ID"] . '\')">
 				Approve Event
