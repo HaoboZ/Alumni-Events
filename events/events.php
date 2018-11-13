@@ -71,21 +71,3 @@ if($admin){
 </div>
 </body>
 </html>
-
-<script>
-// $('#eventList tbody').on( 'click', 'tr td', function(){
-//     var row = $(this).parent()[0];
-//     var data = row.id;
-//     idEdit = data;
-
-//     if($(this).index() == 0){
-//         editConvenio(data);
-//         //console.log('before delContact()');
-//         //delContact2();
-//         //console.log('after delContact()');
-//     }
-//     else{
-//         details(data);
-//     }
-// });
-</script>
