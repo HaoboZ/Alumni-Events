@@ -8,10 +8,7 @@ if (isset($_POST['addEvent'])) {
 		$description = $_POST['description'];
 	}
 	if (isset($_POST['date'])) {
-		$date = $_POST['date'];
-	}
-	if (isset($_POST['time'])) {
-		$time = $_POST['time'];
+		$date = str_replace("T"," " ,$_POST['date']);
 	}
 	if (isset($_POST['location'])) {
 		$location = $_POST['location'];
@@ -39,22 +36,26 @@ if (isset($_POST['addEvent'])) {
 	$row = oci_fetch_assoc($sql);
 	$eventId = $row['NUM'] + 1;
 
-	$curDate = date('Y-m-d');
-
-	$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
-		VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-mm-dd'), :eventLocation, :eventDescription, TO_DATE(:curDate, 'yyyy-mm-dd'), 1)
+	if($admin){
+		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
+		VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-mm-dd'), :eventLocation, :eventDescription, current_date, 1)
 	");
+	}
+	else{
+		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved, creator_first_name, creator_last_name, creator_grad_year, creator_email)
+			VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-MM-dd HH24:mi'), :eventLocation, :eventDescription, current_date, 0, :firstName, :lastName, :gradYear, :email)
+		");
+		oci_bind_by_name($query, ":firstName", $firstName);
+		oci_bind_by_name($query, ":lastName", $lastName);
+		oci_bind_by_name($query, ":gradYear", $gradYear);
+		oci_bind_by_name($query, ":email", $email);
+	}
 	oci_bind_by_name($query, ":id", $eventId);
-	/*oci_bind_by_name($query, ":email", $email);*/
 	oci_bind_by_name($query, ":eventName", $eventName);
 	oci_bind_by_name($query, ":eventDate", $date);
 
 	oci_bind_by_name($query, ":eventLocation", $location);
 	oci_bind_by_name($query, ":eventDescription", $description);
-	oci_bind_by_name($query, ":curDate", $curDate);
-	/*oci_bind_by_name($query, ":firstName", $firstName);
-	oci_bind_by_name($query, ":lastName", $lastName);
-	oci_bind_by_name($query, ":gradYear", $gradYear);*/
 // echo $date;
 // echo '<br>';
 // echo $curDate;
@@ -101,13 +102,13 @@ if (isset($_POST['addEvent'])) {
 			<div class="panel-body">
 				<div class="form-group input-group date" id='date'>
 					<label for="date">Event date</label>
-					<input type="date" name="date" id="date" class="form-control"
+					<input type="datetime-local" name="date" id="date" class="form-control"
 					       min="2018-01-01" max="2020-12-31" required/>
 				</div>
-				<div class="form-group input-group time" id='time'>
+				<!--<div class="form-group input-group time" id='time'>
 					<label for="time">Event time</label>
 					<input type="time" name="time" id="time" class="form-control" required>
-				</div>
+				</div>-->
 				<!--
 				<div class="form-group input-group date" id='datetimepicker1'>
 					<label for="date">Event Date and Time</label>

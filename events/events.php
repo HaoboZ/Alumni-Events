@@ -19,18 +19,23 @@ if (isset($_GET['id'])) {
 <div class="container">
 	<?php include("../content/header.php"); ?>
 	<?php
-
+if($admin){
 	$query = oci_parse($connect, "
 			SELECT * FROM events
 			");
+}else{
+	$query = oci_parse($connect, "
+			SELECT * FROM events WHERE event_approved = 1
+			");
+}
 	$message = '';
 	if (!oci_execute($query)) $message = 'sql error';
 	echo $message;
-	echo '<ul>';
-	while ($event = oci_fetch_assoc($query)) {
-		echo '<a href="' . '?id=' . $event["EVENT_ID"] . '"' . '>' . $event["EVENT_NAME"] . '</a><br>';
-	}
-	echo '</ul>';
+	// echo '<ul>';
+	// while ($event = oci_fetch_assoc($query)) {
+	// 	echo '<a href="' . '?id=' . $event["EVENT_ID"] . '"' . '>' . $event["EVENT_NAME"] . '</a><br>';
+	// }
+	// echo '</ul>';
 	?>
 	<form action="#" method="get">
 		<div class="input-group">
@@ -38,49 +43,49 @@ if (isset($_GET['id'])) {
 			<input class="form-control" id="system-search" name="q" placeholder="Search for" required>
 			<span class="input-group-btn">
                 <button type="submit" class="btn btn-default">
-                    <i class="glyphicon glyphicon-search"></i>
+                    Search
                 </button>
             </span>
 		</div>
 	</form>
-	<table class="table table-list-search">
+	<table id="eventList" class="table table-list-search">
 		<thead>
 		<tr>
-			<th>Entry</th>
-			<th>Entry</th>
-			<th>Entry</th>
-			<th>Entry</th>
-			<th>Entry</th>
-			<th>Entry</th>
+			<th>Event Name</th>
+			<th>Event Location</th>
+			<th>Event Time</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr>
-			<td>Sample</td>
-			<td>Filter</td>
-			<td>12-11-2011 11:11</td>
-			<td>OK</td>
-			<td>123</td>
-			<td>Do some other</td>
-		</tr>
-		<tr>
-			<td>Try</td>
-			<td>It</td>
-			<td>11-20-2013 08:56</td>
-			<td>It</td>
-			<td>Works</td>
-			<td>Do some FILTERME</td>
-		</tr>
-		<tr>
-			<td>§</td>
-			<td>$</td>
-			<td>%</td>
-			<td>&</td>
-			<td>/</td>
-			<td>!</td>
-		</tr>
+		<?php while ($event = oci_fetch_assoc($query)) {
+		echo '
+		<tr'; if($event["EVENT_APPROVED"]==0){ echo ' bgcolor="#FF9999"';}
+		echo '>
+			<td><a href="' . '?id=' . $event["EVENT_ID"] . '"' . '>' . $event["EVENT_NAME"] . '</a></td>
+			<td>'. $event["EVENT_LOCATION"] . '</td>
+			<td>'. $event["EVENT_TIME"] .'</td>
+		</tr>';
+		} ?>
 		</tbody>
 	</table>
 </div>
 </body>
 </html>
+
+<script>
+// $('#eventList tbody').on( 'click', 'tr td', function(){
+//     var row = $(this).parent()[0];
+//     var data = row.id;
+//     idEdit = data;
+
+//     if($(this).index() == 0){
+//         editConvenio(data);
+//         //console.log('before delContact()');
+//         //delContact2();
+//         //console.log('after delContact()');
+//     }
+//     else{
+//         details(data);
+//     }
+// });
+</script>

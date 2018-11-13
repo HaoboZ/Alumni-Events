@@ -35,7 +35,12 @@ students.engr.scu.edu/~\*\*username\*\*/COEN174
 * engine - Haobo
     - [x] login
 * admin controls - Alfredo
-* styling pages - Alfredo
+    - [x] post event
+    - [ ] view full event reports
+    - [ ] verify alumni 
 * fixing up forms - Alfredo
-    - [ ] add events
-    - [ ] edit events
+    - [x] add events
+    - [ ] edit events (for admins)
+    - [ ] php security, check  email format
+* styling pages - Alfredo
+    - [ ] events date not showing time
