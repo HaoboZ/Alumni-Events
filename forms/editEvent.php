@@ -77,6 +77,14 @@ if (!$event)
 <html>
 <head>
 	<?php include("../content/title.php"); ?>
+	<script>
+		function deleteEvent() {
+			if (confirm('Are you sure you want to delete?'))
+				$.post('../singleEvents/deleteEvent.php', {id:<?php echo $_GET["id"]; ?>}, () => {
+					window.location.replace('<?php echo $home; ?>/events/events.php');
+				});
+		}
+	</script>
 </head>
 <body>
 <div class="container">
@@ -110,7 +118,9 @@ if (!$event)
 				<div class="form-group input-group date" id='date'>
 					<label for="date">Event date</label>
 					<input type="datetime-local" name="date" id="date" class="form-control"
-					       min="2018-01-01" max="2020-12-31" value="<?php echo DateTime::createFromFormat('d-M-y', $event['EVENT_TIME'])->format('Y-m-d'); ?>" required/>
+					       min="2018-01-01" max="2020-12-31"
+					       value="<?php echo DateTime::createFromFormat('d-M-y', $event['EVENT_TIME'])->format('Y-m-d'); ?>"
+					       required/>
 				</div>
 				<div class="form-group">
 					<label for="location">Location of event</label>
@@ -124,6 +134,10 @@ if (!$event)
 			?>
 		</div>
 		<button type="submit" name="addEvent" class="btn btn-success">Add Event</button>
+		<button type="button" class="btn"
+		        onclick="deleteEvent()">
+			Delete
+		</button>
 		<button type="button" class="btn"
 		        onclick="window.location.replace('<?php echo $home; ?>/events/events.php?id=<?php echo $_GET["id"]; ?>')">
 			Back
