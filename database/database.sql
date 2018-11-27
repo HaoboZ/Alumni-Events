@@ -24,14 +24,14 @@ CREATE TABLE login_session (
 CREATE TABLE events (
 	event_id           VARCHAR(16) PRIMARY KEY,
 	event_name         VARCHAR(100),
-	event_time         DATE,
+	event_time         TIMESTAMP,
 	event_location     VARCHAR(200),
 	event_info         VARCHAR(1000),
 	creator_email      VARCHAR(200),
 	creator_first_name VARCHAR(100),
 	creator_last_name  VARCHAR(100),
 	creator_grad_year  NUMBER(4),
-	creator_date       DATE,
+	creator_date       TIMESTAMP,
 	event_approved     NUMBER(1),
 	event_code         VARCHAR(10)
 );
@@ -43,10 +43,10 @@ INSERT INTO events (
 ) VALUES (
 	'1',
 	'example event',
-	CURRENT_DATE,
+	CURRENT_TIMESTAMP,
 	'a place',
 	'some random info',
-	CURRENT_DATE,
+	CURRENT_TIMESTAMP,
 	1
 );
 

@@ -38,10 +38,12 @@ students.engr.scu.edu/~\*\*username\*\*/COEN174
 * admin controls - Alfredo
     - [x] post event
     - [ ] view full event reports
-    - [ ] verify alumni
+    - [x] verify alumni
 * fixing up forms - Alfredo
     - [x] add events
-    - [ ] edit events (for admins)
-    - [ ] php security, check  email format
+    - [ ] edit events (retrieve date)
+    - [ ] php security, check  formats
+    - [x] grad year of alumni
 * styling pages - Alfredo
-    - [ ] events date not showing time
+    - [ ] time
+    - [ ] overall style of website

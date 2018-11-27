@@ -2,63 +2,46 @@
 
 include_once("../database/database_connection.php");
 include_once('../login/check.php');
+include_once('../variables.php');
 
 $message = "";
-if (isset($_POST['addEvent'])) {
+if (isset($_POST['editEvent'])) {
 	if (isset($_POST['eventName'])) {
 		$eventName = $_POST['eventName'];
 	}
 	if (isset($_POST['description'])) {
 		$description = $_POST['description'];
 	}
-	if (isset($_POST['date'])) {
-		$date = str_replace("T", " ", $_POST['date']);
-	}
+	// if (isset($_POST['date'])) {
+	// 	$date = str_replace("T"," " ,$_POST['date']);
+	// }
 	if (isset($_POST['location'])) {
 		$location = $_POST['location'];
 	}
-	if (isset($_POST['firstName'])) {
-		$firstName = $_POST['firstName'];
-	}
-	if (isset($_POST['lastName'])) {
-		$lastName = $_POST['lastName'];
-	}
-	if (isset($_POST['email'])) {
-		$email = $_POST['email'];
-	}
-	if (isset($_POST['gradYear'])) {
-		$gradYear = $_POST['gradYear'];
-	}
+	// if (isset($_POST['first_name'])) {
+	// 	$firstName = $_POST['first_name'];
+	// }
+	// if (isset($_POST['last_name'])) {
+	// 	$lastName = $_POST['last_name'];
+	// }
+	// if (isset($_POST['user_email'])) {
+	// 	$email = $_POST['user_email'];
+	// }
+	// if (isset($_POST['grad_year'])) {
+	// 	$gradYear = intval($_POST['grad_year']);
+	// }
 
-	$sql = oci_parse($connect, "SELECT COUNT('event_id') as num FROM events");
-	oci_execute($sql);
-
-	$row = oci_fetch_assoc($sql);
-	$eventId = $row['NUM'] + 1;
-
-	if ($admin) {
-		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
-		VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-mm-dd'), :eventLocation, :eventDescription, current_date, 1)
-	");
-	} else {
-		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved, creator_first_name, creator_last_name, creator_grad_year, creator_email)
-			VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-MM-dd HH24:mi'), :eventLocation, :eventDescription, current_date, 0, :firstName, :lastName, :gradYear, :email)
-		");
-		oci_bind_by_name($query, ":firstName", $firstName);
-		oci_bind_by_name($query, ":lastName", $lastName);
-		oci_bind_by_name($query, ":gradYear", $gradYear);
-		oci_bind_by_name($query, ":email", $email);
-	}
-	oci_bind_by_name($query, ":id", $eventId);
+		$query = oci_parse($connect, "UPDATE events SET event_name = :eventName, event_location = :eventLocation, event_info = :eventDescription WHERE event_id = :id");
+	oci_bind_by_name($query, ":id", $_GET["id"]);
 	oci_bind_by_name($query, ":eventName", $eventName);
-	oci_bind_by_name($query, ":eventDate", $date);
+	// oci_bind_by_name($query, ":eventDate", $date);
 
 	oci_bind_by_name($query, ":eventLocation", $location);
 	oci_bind_by_name($query, ":eventDescription", $description);
 
 	if (!oci_execute($query)) exit;
 
-	$message = '<div class="alert alert-success">Event successfuly created!</div>';
+	$message = '<div class="alert alert-success">Event successfuly edited!</div>';
 }
 
 $query = oci_parse($connect, "
@@ -80,8 +63,12 @@ if (!$event)
 	<script>
 		function deleteEvent() {
 			if (confirm('Are you sure you want to delete?'))
-				$.post('../singleEvents/deleteEvent.php', {id:<?php echo $_GET["id"]; ?>}, () => {
-					window.location.replace('<?php echo $home; ?>/events/events.php');
+				$.post('../singleEvents/deleteEvent.php', {id:<?php echo $_GET["id"]; ?>}, (e) => {
+					if(e){
+						console.log(e);
+					}else{
+						window.location.replace('<?php echo $home; ?>/events/events.php');
+					}
 				});
 		}
 	</script>
@@ -116,11 +103,8 @@ if (!$event)
 			</div>
 			<div class="panel-body">
 				<div class="form-group input-group date" id='date'>
-					<label for="date">Event date</label>
-					<input type="datetime-local" name="date" id="date" class="form-control"
-					       min="2018-01-01" max="2020-12-31"
-					       value="<?php echo DateTime::createFromFormat('d-M-y', $event['EVENT_TIME'])->format('Y-m-d'); ?>"
-					       required/>
+					<label>Event date</label>
+					<?php echo $event['EVENT_TIME']; ?>
 				</div>
 				<div class="form-group">
 					<label for="location">Location of event</label>
@@ -128,18 +112,14 @@ if (!$event)
 					       placeholder="Location of the event" value="<?php echo $event['EVENT_LOCATION']; ?>" required>
 				</div>
 			</div>
-			<?php
-			if (!$admin)
-				include('./userInfo.php');
-			?>
 		</div>
-		<button type="submit" name="addEvent" class="btn btn-success">Add Event</button>
+		<button type="submit" name="editEvent" class="btn btn-success">Edit Event</button>
 		<button type="button" class="btn"
 		        onclick="deleteEvent()">
 			Delete
 		</button>
 		<button type="button" class="btn"
-		        onclick="window.location.replace('<?php echo $home; ?>/events/events.php?id=<?php echo $_GET["id"]; ?>')">
+		        onclick="window.location.replace('<?php echo $home; ?>/events/events.php?id=<?php echo $_GET['id']; ?>')">
 			Back
 		</button>
 		<div style="height: 100px;"></div>

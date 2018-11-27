@@ -20,7 +20,7 @@
 			<option value="">Select Year</option>
 			<?php
 			for ($i = 1950; $i < date('Y'); $i++) {
-				echo '<option value=\"' . $i . '\">' . $i . '</option>';
+				echo '<option value=' . $i . '>' . $i . '</option>';
 			}
 			?>
 		</select>

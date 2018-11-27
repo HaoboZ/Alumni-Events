@@ -13,37 +13,38 @@ if (isset($_POST['addEvent'])) {
 	if (isset($_POST['location'])) {
 		$location = $_POST['location'];
 	}
-	if (isset($_POST['firstName'])) {
-		$firstName = $_POST['firstName'];
+	if (isset($_POST['first_name'])) {
+		$firstName = $_POST['first_name'];
 	}
-	if (isset($_POST['lastName'])) {
-		$lastName = $_POST['lastName'];
+	if (isset($_POST['last_name'])) {
+		$lastName = $_POST['last_name'];
 	}
-	if (isset($_POST['email'])) {
-		$email = $_POST['email'];
+	if (isset($_POST['user_email'])) {
+		$email = $_POST['user_email'];
 	}
-	if (isset($_POST['gradYear'])) {
-		$gradYear = $_POST['gradYear'];
+	if (isset($_POST['grad_year'])) {
+		$gradYear = intval($_POST['grad_year']);
 	}
 
 
 	include_once("../database/database_connection.php");
 	include_once('../login/check.php');
 
-	$sql = oci_parse($connect, "SELECT COUNT('event_id') as num FROM events");
-	oci_execute($sql);
+	// $sql = oci_parse($connect, "SELECT MAX('event_id') as num FROM events");
+	// oci_execute($sql);
 
-	$row = oci_fetch_assoc($sql);
-	$eventId = $row['NUM'] + 1;
+	// $row = oci_fetch_assoc($sql);
+	// $eventId = $row['NUM'] + 1;
+	$eventId = rand(1000000, 9999999);
 
 	if($admin){
 		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
-		VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-mm-dd'), :eventLocation, :eventDescription, current_date, 1)
+		VALUES(:id, :eventName, TO_TIMESTAMP(:eventDate, 'yyyy-mm-dd HH24:mi'), :eventLocation, :eventDescription, current_timestamp, 1)
 	");
 	}
 	else{
 		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved, creator_first_name, creator_last_name, creator_grad_year, creator_email)
-			VALUES(:id, :eventName, TO_DATE(:eventDate, 'yyyy-MM-dd HH24:mi'), :eventLocation, :eventDescription, current_date, 0, :firstName, :lastName, :gradYear, :email)
+			VALUES(:id, :eventName, TO_TIMESTAMP(:eventDate, 'yyyy-MM-dd HH24:mi'), :eventLocation, :eventDescription, current_timestamp, 0, :firstName, :lastName, :gradYear, :email)
 		");
 		oci_bind_by_name($query, ":firstName", $firstName);
 		oci_bind_by_name($query, ":lastName", $lastName);
@@ -61,8 +62,8 @@ if (isset($_POST['addEvent'])) {
 // echo $curDate;
 
 	if (!oci_execute($query)) exit;
-
-	$message = '<div class="alert alert-success">Event successfuly created!</div>';
+	$message = $_POST["grad_year"];
+	//$message = '<div class="alert alert-success">Event successfuly created!</div>';
 }
 ?>
 
@@ -101,9 +102,8 @@ if (isset($_POST['addEvent'])) {
 			</div>
 			<div class="panel-body">
 				<div class="form-group input-group date" id='date'>
-					<label for="date">Event date</label>
-					<input type="datetime-local" name="date" id="date" class="form-control"
-					       min="2018-01-01" max="2020-12-31" required/>
+					<label for="date">Event date & time</label>
+					<input type="datetime-local" name="date" id="date" class="form-control" required/>
 				</div>
 				<!--<div class="form-group input-group time" id='time'>
 					<label for="time">Event time</label>
