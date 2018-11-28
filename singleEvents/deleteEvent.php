@@ -1,3 +1,8 @@
+<!--
+Post request, will delete event.
+
+Returns false on success.
+-->
 <?php
 if ($_SERVER["REQUEST_METHOD"] != "POST")
 	exit;

@@ -10,10 +10,11 @@
  * For event resizing, requires jQuery UI resizable.
  */
 
-(function($, undefined) {
+(function ($, undefined) {
 
 
-	;;
+	;
+	;
 
 	var defaults = {
 
@@ -61,10 +62,10 @@
 		// locale
 		isRTL: false,
 		firstDay: 0,
-		monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-		monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-		dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-		dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+		monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+		monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+		dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+		dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 		buttonText: {
 			prev: "<span class='fc-text-arrow'>‹</span>",
 			next: "<span class='fc-text-arrow'>›</span>",
@@ -112,21 +113,21 @@
 	};
 
 
+	;
+	;
 
-	;;
-
-	var fc = $.fullCalendar = { version: "1.6.4" };
+	var fc = $.fullCalendar = {version: "1.6.4"};
 	var fcViews = fc.views = {};
 
 
-	$.fn.fullCalendar = function(options) {
+	$.fn.fullCalendar = function (options) {
 
 
 		// method calling
 		if (typeof options == 'string') {
 			var args = Array.prototype.slice.call(arguments, 1);
 			var res;
-			this.each(function() {
+			this.each(function () {
 				var calendar = $.data(this, 'fullCalendar');
 				if (calendar && $.isFunction(calendar[options])) {
 					var r = calendar[options].apply(calendar, args);
@@ -157,12 +158,12 @@
 
 		options = $.extend(true, {},
 			defaults,
-			(options.isRTL || options.isRTL===undefined && defaults.isRTL) ? rtlDefaults : {},
+			(options.isRTL || options.isRTL === undefined && defaults.isRTL) ? rtlDefaults : {},
 			options
 		);
 
 
-		this.each(function(i, _element) {
+		this.each(function (i, _element) {
 			var element = $(_element);
 			var calendar = new Calendar(element, options, eventSources);
 			element.data('fullCalendar', calendar); // TODO: look into memory leak implications
@@ -181,8 +182,8 @@
 	}
 
 
-
-	;;
+	;
+	;
 
 
 	function Calendar(element, options, eventSources) {
@@ -207,8 +208,12 @@
 		t.today = today;
 		t.gotoDate = gotoDate;
 		t.incrementDate = incrementDate;
-		t.formatDate = function(format, date) { return formatDate(format, date, options) };
-		t.formatDates = function(format, date1, date2) { return formatDates(format, date1, date2, options) };
+		t.formatDate = function (format, date) {
+			return formatDate(format, date, options)
+		};
+		t.formatDates = function (format, date1, date2) {
+			return formatDates(format, date1, date2, options)
+		};
 		t.getDate = getDate;
 		t.getView = getView;
 		t.option = option;
@@ -235,7 +240,6 @@
 		var date = new Date();
 		var events = [];
 		var _dragElement;
-
 
 
 		/* Main Rendering
@@ -295,11 +299,11 @@
 		// called when we know the calendar couldn't be rendered when it was initialized,
 		// but we think it's ready now
 		function lateRender() {
-			setTimeout(function() { // IE7 needs this so dimensions are calculated correctly
+			setTimeout(function () { // IE7 needs this so dimensions are calculated correctly
 				if (!currentView.start && bodyVisible()) { // !currentView.start makes sure this never happens more than once
 					renderView();
 				}
-			},0);
+			}, 0);
 		}
 
 
@@ -326,7 +330,6 @@
 		function bodyVisible() {
 			return $('body').is(':visible');
 		}
-
 
 
 		/* View Rendering
@@ -406,7 +409,6 @@
 		}
 
 
-
 		/* Resizing
 	-----------------------------------------------------------------------------*/
 
@@ -456,7 +458,7 @@
 			if (!ignoreWindowResize) {
 				if (currentView.start) { // view has already been rendered
 					var uid = ++resizeUID;
-					setTimeout(function() { // add a delay
+					setTimeout(function () { // add a delay
 						if (uid == resizeUID && !ignoreWindowResize && elementVisible()) {
 							if (elementOuterWidth != (elementOuterWidth = element.outerWidth())) {
 								ignoreWindowResize++; // in case the windowResize callback changes the height
@@ -466,7 +468,7 @@
 							}
 						}
 					}, 200);
-				}else{
+				} else {
 					// calendar must have been initialized in a 0x0 iframe that has just been resized
 					lateRender();
 				}
@@ -474,9 +476,9 @@
 		}
 
 
-
 		/* Event Fetching/Rendering
 	-----------------------------------------------------------------------------*/
+
 		// TODO: going forward, most of this stuff should be directly handled by the view
 
 
@@ -538,7 +540,6 @@
 		}
 
 
-
 		/* Header Updating
 	-----------------------------------------------------------------------------*/
 
@@ -559,13 +560,12 @@
 		}
 
 
-
 		/* Selection
 	-----------------------------------------------------------------------------*/
 
 
 		function select(start, end, allDay) {
-			currentView.select(start, end, allDay===undefined ? true : allDay);
+			currentView.select(start, end, allDay === undefined ? true : allDay);
 		}
 
 
@@ -574,7 +574,6 @@
 				currentView.unselect();
 			}
 		}
-
 
 
 		/* Date
@@ -612,7 +611,7 @@
 		function gotoDate(year, month, dateOfMonth) {
 			if (year instanceof Date) {
 				date = cloneDate(year); // provided 1 argument, a Date
-			}else{
+			} else {
 				setYMD(date, year, month, dateOfMonth);
 			}
 			renderView();
@@ -638,7 +637,6 @@
 		}
 
 
-
 		/* Height "Freezing"
 	-----------------------------------------------------------------------------*/
 
@@ -659,7 +657,6 @@
 				overflow: ''
 			});
 		}
-
 
 
 		/* Misc
@@ -692,13 +689,12 @@
 		}
 
 
-
 		/* External Dragging
 	------------------------------------------------------------------------*/
 
 		if (options.droppable) {
 			$(document)
-				.bind('dragstart', function(ev, ui) {
+				.bind('dragstart', function (ev, ui) {
 					var _e = ev.target;
 					var e = $(_e);
 					if (!e.parents('.fc').length) { // not already inside a calendar
@@ -709,7 +705,7 @@
 						}
 					}
 				})
-				.bind('dragstop', function(ev, ui) {
+				.bind('dragstop', function (ev, ui) {
 					if (_dragElement) {
 						currentView.dragStop(_dragElement, ev, ui);
 						_dragElement = null;
@@ -720,7 +716,8 @@
 
 	}
 
-	;;
+	;
+	;
 
 	function Header(calendar, options) {
 		var t = this;
@@ -739,7 +736,6 @@
 		// locals
 		var element = $([]);
 		var tm;
-
 
 
 		function render() {
@@ -767,25 +763,25 @@
 			var e = $("<td class='fc-header-" + position + "'/>");
 			var buttonStr = options.header[position];
 			if (buttonStr) {
-				$.each(buttonStr.split(' '), function(i) {
+				$.each(buttonStr.split(' '), function (i) {
 					if (i > 0) {
 						e.append("<span class='fc-header-space'/>");
 					}
 					var prevButton;
-					$.each(this.split(','), function(j, buttonName) {
+					$.each(this.split(','), function (j, buttonName) {
 						if (buttonName == 'title') {
 							e.append("<span class='fc-header-title'><h2> </h2></span>");
 							if (prevButton) {
 								prevButton.addClass(tm + '-corner-right');
 							}
 							prevButton = null;
-						}else{
+						} else {
 							var buttonClick;
 							if (calendar[buttonName]) {
 								buttonClick = calendar[buttonName]; // calendar method
 							}
 							else if (fcViews[buttonName]) {
-								buttonClick = function() {
+								buttonClick = function () {
 									button.removeClass(tm + '-state-hover'); // forget why
 									calendar.changeView(buttonName);
 								};
@@ -803,28 +799,28 @@
 									) +
 									"</span>"
 								)
-									.click(function() {
+									.click(function () {
 										if (!button.hasClass(tm + '-state-disabled')) {
 											buttonClick();
 										}
 									})
-									.mousedown(function() {
+									.mousedown(function () {
 										button
 											.not('.' + tm + '-state-active')
 											.not('.' + tm + '-state-disabled')
 											.addClass(tm + '-state-down');
 									})
-									.mouseup(function() {
+									.mouseup(function () {
 										button.removeClass(tm + '-state-down');
 									})
 									.hover(
-										function() {
+										function () {
 											button
 												.not('.' + tm + '-state-active')
 												.not('.' + tm + '-state-disabled')
 												.addClass(tm + '-state-hover');
 										},
-										function() {
+										function () {
 											button
 												.removeClass(tm + '-state-hover')
 												.removeClass(tm + '-state-down');
@@ -880,7 +876,8 @@
 
 	}
 
-	;;
+	;
+	;
 
 	fc.sourceNormalizers = [];
 	fc.sourceFetchers = [];
@@ -916,8 +913,8 @@
 
 
 		// locals
-		var stickySource = { events: [] };
-		var sources = [ stickySource ];
+		var stickySource = {events: []};
+		var sources = [stickySource];
 		var rangeStart, rangeEnd;
 		var currentFetchID = 0;
 		var pendingSourceCnt = 0;
@@ -925,10 +922,9 @@
 		var cache = [];
 
 
-		for (var i=0; i<_sources.length; i++) {
+		for (var i = 0; i < _sources.length; i++) {
 			_addEventSource(_sources[i]);
 		}
-
 
 
 		/* Fetching
@@ -947,14 +943,14 @@
 			var fetchID = ++currentFetchID;
 			var len = sources.length;
 			pendingSourceCnt = len;
-			for (var i=0; i<len; i++) {
+			for (var i = 0; i < len; i++) {
 				fetchEventSource(sources[i], fetchID);
 			}
 		}
 
 
 		function fetchEventSource(source, fetchID) {
-			_fetchEventSource(source, function(events) {
+			_fetchEventSource(source, function (events) {
 				if (fetchID == currentFetchID) {
 					if (events) {
 
@@ -967,7 +963,7 @@
 						// TODO: this technique is not ideal for static array event sources.
 						//  For arrays, we'll want to process all events right in the beginning, then never again.
 
-						for (var i=0; i<events.length; i++) {
+						for (var i = 0; i < events.length; i++) {
 							events[i].source = source;
 							normalizeEvent(events[i]);
 						}
@@ -986,7 +982,7 @@
 			var i;
 			var fetchers = fc.sourceFetchers;
 			var res;
-			for (i=0; i<fetchers.length; i++) {
+			for (i = 0; i < fetchers.length; i++) {
 				res = fetchers[i](source, rangeStart, rangeEnd, callback);
 				if (res === true) {
 					// the fetcher is in charge. made its own async request
@@ -1002,7 +998,7 @@
 			if (events) {
 				if ($.isFunction(events)) {
 					pushLoading();
-					events(cloneDate(rangeStart), cloneDate(rangeEnd), function(events) {
+					events(cloneDate(rangeStart), cloneDate(rangeEnd), function (events) {
 						callback(events);
 						popLoading();
 					});
@@ -1013,7 +1009,7 @@
 				else {
 					callback();
 				}
-			}else{
+			} else {
 				var url = source.url;
 				if (url) {
 					var success = source.success;
@@ -1047,7 +1043,7 @@
 					pushLoading();
 					$.ajax($.extend({}, ajaxDefaults, source, {
 						data: data,
-						success: function(events) {
+						success: function (events) {
 							events = events || [];
 							var res = applyAll(success, this, arguments);
 							if ($.isArray(res)) {
@@ -1055,21 +1051,20 @@
 							}
 							callback(events);
 						},
-						error: function() {
+						error: function () {
 							applyAll(error, this, arguments);
 							callback();
 						},
-						complete: function() {
+						complete: function () {
 							applyAll(complete, this, arguments);
 							popLoading();
 						}
 					}));
-				}else{
+				} else {
 					callback();
 				}
 			}
 		}
-
 
 
 		/* Sources
@@ -1087,10 +1082,10 @@
 
 		function _addEventSource(source) {
 			if ($.isFunction(source) || $.isArray(source)) {
-				source = { events: source };
+				source = {events: source};
 			}
 			else if (typeof source == 'string') {
-				source = { url: source };
+				source = {url: source};
 			}
 			if (typeof source == 'object') {
 				normalizeSource(source);
@@ -1101,16 +1096,15 @@
 
 
 		function removeEventSource(source) {
-			sources = $.grep(sources, function(src) {
+			sources = $.grep(sources, function (src) {
 				return !isSourcesEqual(src, source);
 			});
 			// remove all client events from that source
-			cache = $.grep(cache, function(e) {
+			cache = $.grep(cache, function (e) {
 				return !isSourcesEqual(e.source, source);
 			});
 			reportEvents(cache);
 		}
-
 
 
 		/* Manipulation
@@ -1124,17 +1118,17 @@
 				endDelta = event.end ?
 					(event.end - (event._end || defaultEventEnd(event))) // event._end would be null if event.end
 					: 0;                                                      // was null and event was just resized
-			for (i=0; i<len; i++) {
+			for (i = 0; i < len; i++) {
 				e = cache[i];
 				if (e._id == event._id && e != event) {
 					e.start = new Date(+e.start + startDelta);
 					if (event.end) {
 						if (e.end) {
 							e.end = new Date(+e.end + endDelta);
-						}else{
+						} else {
 							e.end = new Date(+defaultEventEnd(e) + endDelta);
 						}
-					}else{
+					} else {
 						e.end = null;
 					}
 					e.title = event.title;
@@ -1171,21 +1165,21 @@
 			if (!filter) { // remove all
 				cache = [];
 				// clear all array sources
-				for (var i=0; i<sources.length; i++) {
+				for (var i = 0; i < sources.length; i++) {
 					if ($.isArray(sources[i].events)) {
 						sources[i].events = [];
 					}
 				}
-			}else{
+			} else {
 				if (!$.isFunction(filter)) { // an event ID
 					var id = filter + '';
-					filter = function(e) {
+					filter = function (e) {
 						return e._id == id;
 					};
 				}
 				cache = $.grep(cache, filter, true);
 				// remove events from array sources
-				for (var i=0; i<sources.length; i++) {
+				for (var i = 0; i < sources.length; i++) {
 					if ($.isArray(sources[i].events)) {
 						sources[i].events = $.grep(sources[i].events, filter, true);
 					}
@@ -1201,13 +1195,12 @@
 			}
 			else if (filter) { // an event ID
 				filter += '';
-				return $.grep(cache, function(e) {
+				return $.grep(cache, function (e) {
 					return e._id == filter;
 				});
 			}
 			return cache; // else, return all
 		}
-
 
 
 		/* Loading State
@@ -1226,7 +1219,6 @@
 				trigger('loading', null, false, getView());
 			}
 		}
-
 
 
 		/* Event Normalization
@@ -1256,12 +1248,11 @@
 				if (typeof event.className == 'string') {
 					event.className = event.className.split(/\s+/);
 				}
-			}else{
+			} else {
 				event.className = [];
 			}
 			// TODO: if there is no start date, return false to indicate an invalid event
 		}
-
 
 
 		/* Utils
@@ -1274,11 +1265,11 @@
 				if (typeof source.className == 'string') {
 					source.className = source.className.split(/\s+/);
 				}
-			}else{
+			} else {
 				source.className = [];
 			}
 			var normalizers = fc.sourceNormalizers;
-			for (var i=0; i<normalizers.length; i++) {
+			for (var i = 0; i < normalizers.length; i++) {
 				normalizers[i](source);
 			}
 		}
@@ -1296,7 +1287,8 @@
 
 	}
 
-	;;
+	;
+	;
 
 
 	fc.addDays = addDays;
@@ -1306,7 +1298,6 @@
 	fc.parseTime = parseTime;
 	fc.formatDate = formatDate;
 	fc.formatDates = formatDates;
-
 
 
 	/* Date Math
@@ -1394,7 +1385,7 @@
 
 
 	function zeroDate() { // returns a Date with time 00:00:00 and dateOfMonth=1
-		var i=0, d;
+		var i = 0, d;
 		do {
 			d = new Date(1970, i++, 1);
 		} while (d.getHours()); // != 0
@@ -1421,7 +1412,6 @@
 			date.setDate(d);
 		}
 	}
-
 
 
 	/* Date Parsing
@@ -1481,7 +1471,7 @@
 				date.setMilliseconds(Number("0." + m[12]) * 1000);
 			}
 			fixDate(date, check);
-		}else{
+		} else {
 			date.setUTCFullYear(
 				m[1],
 				m[3] ? m[3] - 1 : 0,
@@ -1524,9 +1514,9 @@
 	}
 
 
-
 	/* Date Formatting
 -----------------------------------------------------------------------------*/
+
 // TODO: use same function formatDate(date, [date2], format, [options])
 
 
@@ -1542,16 +1532,16 @@
 			i, len = format.length, c,
 			i2, formatter,
 			res = '';
-		for (i=0; i<len; i++) {
+		for (i = 0; i < len; i++) {
 			c = format.charAt(i);
 			if (c == "'") {
-				for (i2=i+1; i2<len; i2++) {
+				for (i2 = i + 1; i2 < len; i2++) {
 					if (format.charAt(i2) == "'") {
 						if (date) {
-							if (i2 == i+1) {
+							if (i2 == i + 1) {
 								res += "'";
-							}else{
-								res += format.substring(i+1, i2);
+							} else {
+								res += format.substring(i + 1, i2);
 							}
 							i = i2;
 						}
@@ -1560,9 +1550,9 @@
 				}
 			}
 			else if (c == '(') {
-				for (i2=i+1; i2<len; i2++) {
+				for (i2 = i + 1; i2 < len; i2++) {
 					if (format.charAt(i2) == ')') {
-						var subres = formatDate(date, format.substring(i+1, i2), options);
+						var subres = formatDate(date, format.substring(i + 1, i2), options);
 						if (parseInt(subres.replace(/\D/, ''), 10)) {
 							res += subres;
 						}
@@ -1572,9 +1562,9 @@
 				}
 			}
 			else if (c == '[') {
-				for (i2=i+1; i2<len; i2++) {
+				for (i2 = i + 1; i2 < len; i2++) {
 					if (format.charAt(i2) == ']') {
-						var subformat = format.substring(i+1, i2);
+						var subformat = format.substring(i + 1, i2);
 						var subres = formatDate(date, subformat, options);
 						if (subres != formatDate(otherDate, subformat, options)) {
 							res += subres;
@@ -1593,7 +1583,7 @@
 				otherDate = date2;
 			}
 			else {
-				for (i2=len; i2>i; i2--) {
+				for (i2 = len; i2 > i; i2--) {
 					if (formatter = dateFormatters[format.substring(i, i2)]) {
 						if (date) {
 							res += formatter(date, options);
@@ -1614,40 +1604,86 @@
 
 
 	var dateFormatters = {
-		s	: function(d)	{ return d.getSeconds() },
-		ss	: function(d)	{ return zeroPad(d.getSeconds()) },
-		m	: function(d)	{ return d.getMinutes() },
-		mm	: function(d)	{ return zeroPad(d.getMinutes()) },
-		h	: function(d)	{ return d.getHours() % 12 || 12 },
-		hh	: function(d)	{ return zeroPad(d.getHours() % 12 || 12) },
-		H	: function(d)	{ return d.getHours() },
-		HH	: function(d)	{ return zeroPad(d.getHours()) },
-		d	: function(d)	{ return d.getDate() },
-		dd	: function(d)	{ return zeroPad(d.getDate()) },
-		ddd	: function(d,o)	{ return o.dayNamesShort[d.getDay()] },
-		dddd: function(d,o)	{ return o.dayNames[d.getDay()] },
-		M	: function(d)	{ return d.getMonth() + 1 },
-		MM	: function(d)	{ return zeroPad(d.getMonth() + 1) },
-		MMM	: function(d,o)	{ return o.monthNamesShort[d.getMonth()] },
-		MMMM: function(d,o)	{ return o.monthNames[d.getMonth()] },
-		yy	: function(d)	{ return (d.getFullYear()+'').substring(2) },
-		yyyy: function(d)	{ return d.getFullYear() },
-		t	: function(d)	{ return d.getHours() < 12 ? 'a' : 'p' },
-		tt	: function(d)	{ return d.getHours() < 12 ? 'am' : 'pm' },
-		T	: function(d)	{ return d.getHours() < 12 ? 'A' : 'P' },
-		TT	: function(d)	{ return d.getHours() < 12 ? 'AM' : 'PM' },
-		u	: function(d)	{ return formatDate(d, "yyyy-MM-dd'T'HH:mm:ss'Z'") },
-		S	: function(d)	{
+		s: function (d) {
+			return d.getSeconds()
+		},
+		ss: function (d) {
+			return zeroPad(d.getSeconds())
+		},
+		m: function (d) {
+			return d.getMinutes()
+		},
+		mm: function (d) {
+			return zeroPad(d.getMinutes())
+		},
+		h: function (d) {
+			return d.getHours() % 12 || 12
+		},
+		hh: function (d) {
+			return zeroPad(d.getHours() % 12 || 12)
+		},
+		H: function (d) {
+			return d.getHours()
+		},
+		HH: function (d) {
+			return zeroPad(d.getHours())
+		},
+		d: function (d) {
+			return d.getDate()
+		},
+		dd: function (d) {
+			return zeroPad(d.getDate())
+		},
+		ddd: function (d, o) {
+			return o.dayNamesShort[d.getDay()]
+		},
+		dddd: function (d, o) {
+			return o.dayNames[d.getDay()]
+		},
+		M: function (d) {
+			return d.getMonth() + 1
+		},
+		MM: function (d) {
+			return zeroPad(d.getMonth() + 1)
+		},
+		MMM: function (d, o) {
+			return o.monthNamesShort[d.getMonth()]
+		},
+		MMMM: function (d, o) {
+			return o.monthNames[d.getMonth()]
+		},
+		yy: function (d) {
+			return (d.getFullYear() + '').substring(2)
+		},
+		yyyy: function (d) {
+			return d.getFullYear()
+		},
+		t: function (d) {
+			return d.getHours() < 12 ? 'a' : 'p'
+		},
+		tt: function (d) {
+			return d.getHours() < 12 ? 'am' : 'pm'
+		},
+		T: function (d) {
+			return d.getHours() < 12 ? 'A' : 'P'
+		},
+		TT: function (d) {
+			return d.getHours() < 12 ? 'AM' : 'PM'
+		},
+		u: function (d) {
+			return formatDate(d, "yyyy-MM-dd'T'HH:mm:ss'Z'")
+		},
+		S: function (d) {
 			var date = d.getDate();
 			if (date > 10 && date < 20) {
 				return 'th';
 			}
-			return ['st', 'nd', 'rd'][date%10-1] || 'th';
+			return ['st', 'nd', 'rd'][date % 10 - 1] || 'th';
 		},
-		w   : function(d, o) { // local
+		w: function (d, o) { // local
 			return o.weekNumberCalculation(d);
 		},
-		W   : function(d) { // ISO
+		W: function (d) { // ISO
 			return iso8601Week(d);
 		}
 	};
@@ -1674,7 +1710,8 @@
 	}
 
 
-	;;
+	;
+	;
 
 	fc.applyAll = applyAll;
 
@@ -1686,7 +1723,7 @@
 	function exclEndDay(event) {
 		if (event.end) {
 			return _exclEndDay(event.end, event.allDay);
-		}else{
+		} else {
 			return addDays(cloneDate(event.start), 1);
 		}
 	}
@@ -1699,14 +1736,13 @@
 	}
 
 
-
 	/* Event Element Binding
 -----------------------------------------------------------------------------*/
 
 
 	function lazySegBind(container, segs, bindHandlers) {
-		container.unbind('mouseover').mouseover(function(ev) {
-			var parent=ev.target, e,
+		container.unbind('mouseover').mouseover(function (ev) {
+			var parent = ev.target, e,
 				i, seg;
 			while (parent != this) {
 				e = parent;
@@ -1723,13 +1759,12 @@
 	}
 
 
-
 	/* Element Dimensions
 -----------------------------------------------------------------------------*/
 
 
 	function setOuterWidth(element, width, includeMargins) {
-		for (var i=0, e; i<element.length; i++) {
+		for (var i = 0, e; i < element.length; i++) {
 			e = $(element[i]);
 			e.width(Math.max(0, width - hsides(e, includeMargins)));
 		}
@@ -1737,7 +1772,7 @@
 
 
 	function setOuterHeight(element, height, includeMargins) {
-		for (var i=0, e; i<element.length; i++) {
+		for (var i = 0, e; i < element.length; i++) {
 			e = $(element[i]);
 			e.height(Math.max(0, height - vsides(e, includeMargins)));
 		}
@@ -1768,7 +1803,7 @@
 
 
 	function vsides(element, includeMargins) {
-		return vpadding(element) +  vborders(element) + (includeMargins ? vmargins(element) : 0);
+		return vpadding(element) + vborders(element) + (includeMargins ? vmargins(element) : 0);
 	}
 
 
@@ -1790,7 +1825,6 @@
 	}
 
 
-
 	/* Misc Utils
 -----------------------------------------------------------------------------*/
 
@@ -1799,7 +1833,8 @@
 //TODO: isFunction, grep ?
 
 
-	function noop() { }
+	function noop() {
+	}
 
 
 	function dateCompare(a, b) {
@@ -1822,8 +1857,8 @@
 			return obj[name];
 		}
 		var parts = name.split(/(?=[A-Z])/),
-			i=parts.length-1, res;
-		for (; i>=0; i--) {
+			i = parts.length - 1, res;
+		for (; i >= 0; i--) {
 			res = obj[parts[i].toLowerCase()];
 			if (res !== undefined) {
 				return res;
@@ -1847,7 +1882,9 @@
 		element
 			.attr('unselectable', 'on')
 			.css('MozUserSelect', 'none')
-			.bind('selectstart.ui', function() { return false; });
+			.bind('selectstart.ui', function () {
+				return false;
+			});
 	}
 
 
@@ -1873,7 +1910,7 @@ function enableTextSelection(element) {
 
 
 	function setDayID(cell, date) {
-		cell.each(function(i, _cell) {
+		cell.each(function (i, _cell) {
 			_cell.className = _cell.className.replace(/^fc-\w*/, 'fc-' + dayIDs[date.getDay()]);
 			// TODO: make a way that doesn't rely on order of classes
 		});
@@ -1919,12 +1956,12 @@ function enableTextSelection(element) {
 
 	function applyAll(functions, thisObj, args) {
 		if ($.isFunction(functions)) {
-			functions = [ functions ];
+			functions = [functions];
 		}
 		if (functions) {
 			var i;
 			var ret;
-			for (i=0; i<functions.length; i++) {
+			for (i = 0; i < functions.length; i++) {
 				ret = functions[i].apply(thisObj, args) || ret;
 			}
 			return ret;
@@ -1933,7 +1970,7 @@ function enableTextSelection(element) {
 
 
 	function firstDefined() {
-		for (var i=0; i<arguments.length; i++) {
+		for (var i = 0; i < arguments.length; i++) {
 			if (arguments[i] !== undefined) {
 				return arguments[i];
 			}
@@ -1941,7 +1978,8 @@ function enableTextSelection(element) {
 	}
 
 
-	;;
+	;
+	;
 
 	fcViews.month = MonthView;
 
@@ -2005,7 +2043,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	fcViews.basicWeek = BasicWeekView;
 
@@ -2060,7 +2099,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	fcViews.basicDay = BasicDayView;
 
@@ -2102,7 +2142,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	setDefaults({
 		weekMode: 'fixed'
@@ -2125,17 +2166,29 @@ function enableTextSelection(element) {
 		t.dragStart = dragStart;
 		t.dragStop = dragStop;
 		t.defaultEventEnd = defaultEventEnd;
-		t.getHoverListener = function() { return hoverListener };
+		t.getHoverListener = function () {
+			return hoverListener
+		};
 		t.colLeft = colLeft;
 		t.colRight = colRight;
 		t.colContentLeft = colContentLeft;
 		t.colContentRight = colContentRight;
-		t.getIsCellAllDay = function() { return true };
+		t.getIsCellAllDay = function () {
+			return true
+		};
 		t.allDayRow = allDayRow;
-		t.getRowCnt = function() { return rowCnt };
-		t.getColCnt = function() { return colCnt };
-		t.getColWidth = function() { return colWidth };
-		t.getDaySegmentContainer = function() { return daySegmentContainer };
+		t.getRowCnt = function () {
+			return rowCnt
+		};
+		t.getColCnt = function () {
+			return colCnt
+		};
+		t.getColWidth = function () {
+			return colWidth
+		};
+		t.getDaySegmentContainer = function () {
+			return daySegmentContainer
+		};
 
 
 		// imports
@@ -2184,7 +2237,6 @@ function enableTextSelection(element) {
 		var showWeekNumbers;
 		var weekNumberTitle;
 		var weekNumberFormat;
-
 
 
 		/* Rendering
@@ -2254,7 +2306,7 @@ function enableTextSelection(element) {
 			bodyRows.eq(0).addClass('fc-first');
 			bodyRows.filter(':last').addClass('fc-last');
 
-			bodyCells.each(function(i, _cell) {
+			bodyCells.each(function (i, _cell) {
 				var date = cellToDate(
 					Math.floor(i / colCnt),
 					i % colCnt
@@ -2264,7 +2316,6 @@ function enableTextSelection(element) {
 
 			dayBind(bodyCells);
 		}
-
 
 
 		/* HTML Building
@@ -2297,7 +2348,7 @@ function enableTextSelection(element) {
 					"</th>";
 			}
 
-			for (col=0; col<colCnt; col++) {
+			for (col = 0; col < colCnt; col++) {
 				date = cellToDate(0, col);
 				html +=
 					"<th class='fc-day-header fc-" + dayIDs[date.getDay()] + " " + headerClass + "'>" +
@@ -2320,7 +2371,7 @@ function enableTextSelection(element) {
 
 			html += "<tbody>";
 
-			for (row=0; row<rowCnt; row++) {
+			for (row = 0; row < rowCnt; row++) {
 
 				html += "<tr class='fc-week'>";
 
@@ -2334,7 +2385,7 @@ function enableTextSelection(element) {
 						"</td>";
 				}
 
-				for (col=0; col<colCnt; col++) {
+				for (col = 0; col < colCnt; col++) {
 					date = cellToDate(row, col);
 					html += buildCellHTML(date);
 				}
@@ -2397,7 +2448,6 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Dimensions
 	-----------------------------------------------------------*/
 
@@ -2411,18 +2461,18 @@ function enableTextSelection(element) {
 			var cell;
 
 			if (opt('weekMode') == 'variable') {
-				rowHeight = rowHeightLast = Math.floor(bodyHeight / (rowCnt==1 ? 2 : 6));
-			}else{
+				rowHeight = rowHeightLast = Math.floor(bodyHeight / (rowCnt == 1 ? 2 : 6));
+			} else {
 				rowHeight = Math.floor(bodyHeight / rowCnt);
-				rowHeightLast = bodyHeight - rowHeight * (rowCnt-1);
+				rowHeightLast = bodyHeight - rowHeight * (rowCnt - 1);
 			}
 
-			bodyFirstCells.each(function(i, _cell) {
+			bodyFirstCells.each(function (i, _cell) {
 				if (i < rowCnt) {
 					cell = $(_cell);
 					cell.find('> div').css(
 						'min-height',
-						(i==rowCnt-1 ? rowHeightLast : rowHeight) - vsides(cell)
+						(i == rowCnt - 1 ? rowHeightLast : rowHeight) - vsides(cell)
 					);
 				}
 			});
@@ -2445,7 +2495,6 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Day clicking and binding
 	-----------------------------------------------------------*/
 
@@ -2464,9 +2513,9 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Semi-transparent Overlay Helpers
 	------------------------------------------------------*/
+
 		// TODO: should be consolidated with AgendaView's methods
 
 
@@ -2478,7 +2527,7 @@ function enableTextSelection(element) {
 
 			var segments = rangeToSegments(overlayStart, overlayEnd);
 
-			for (var i=0; i<segments.length; i++) {
+			for (var i = 0; i < segments.length; i++) {
 				var segment = segments[i];
 				dayBind(
 					renderCellOverlay(
@@ -2496,7 +2545,6 @@ function enableTextSelection(element) {
 			var rect = coordinateGrid.rect(row0, col0, row1, col1, element);
 			return renderOverlay(rect, element);
 		}
-
 
 
 		/* Selection
@@ -2520,10 +2568,9 @@ function enableTextSelection(element) {
 
 		function reportDayClick(date, allDay, ev) {
 			var cell = dateToCell(date);
-			var _element = bodyCells[cell.row*colCnt + cell.col];
+			var _element = bodyCells[cell.row * colCnt + cell.col];
 			trigger('dayClick', _element, date, allDay, ev);
 		}
-
 
 
 		/* External Dragging
@@ -2531,7 +2578,7 @@ function enableTextSelection(element) {
 
 
 		function dragStart(_dragElement, ev, ui) {
-			hoverListener.start(function(cell) {
+			hoverListener.start(function (cell) {
 				clearOverlays();
 				if (cell) {
 					renderCellOverlay(cell.row, cell.col, cell.row, cell.col);
@@ -2550,7 +2597,6 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Utilities
 	--------------------------------------------------------*/
 
@@ -2560,9 +2606,9 @@ function enableTextSelection(element) {
 		}
 
 
-		coordinateGrid = new CoordinateGrid(function(rows, cols) {
+		coordinateGrid = new CoordinateGrid(function (rows, cols) {
 			var e, n, p;
-			headCells.each(function(i, _e) {
+			headCells.each(function (i, _e) {
 				e = $(_e);
 				n = e.offset().left;
 				if (i) {
@@ -2572,7 +2618,7 @@ function enableTextSelection(element) {
 				cols[i] = p;
 			});
 			p[1] = n + e.outerWidth();
-			bodyRows.each(function(i, _e) {
+			bodyRows.each(function (i, _e) {
 				if (i < rowCnt) {
 					e = $(_e);
 					n = e.offset().top;
@@ -2589,11 +2635,11 @@ function enableTextSelection(element) {
 
 		hoverListener = new HoverListener(coordinateGrid);
 
-		colPositions = new HorizontalPositionCache(function(col) {
+		colPositions = new HorizontalPositionCache(function (col) {
 			return firstRowCellInners.eq(col);
 		});
 
-		colContentPositions = new HorizontalPositionCache(function(col) {
+		colContentPositions = new HorizontalPositionCache(function (col) {
 			return firstRowCellContentInners.eq(col);
 		});
 
@@ -2624,7 +2670,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	function BasicEventRenderer() {
 		var t = this;
@@ -2653,7 +2700,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	fcViews.agendaWeek = AgendaWeekView;
 
@@ -2707,7 +2755,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	fcViews.agendaDay = AgendaDayView;
 
@@ -2749,7 +2798,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	setDefaults({
 		allDaySlot: true,
@@ -2787,22 +2837,46 @@ function enableTextSelection(element) {
 		t.timePosition = timePosition;
 		t.getIsCellAllDay = getIsCellAllDay;
 		t.allDayRow = getAllDayRow;
-		t.getCoordinateGrid = function() { return coordinateGrid }; // specifically for AgendaEventRenderer
-		t.getHoverListener = function() { return hoverListener };
+		t.getCoordinateGrid = function () {
+			return coordinateGrid
+		}; // specifically for AgendaEventRenderer
+		t.getHoverListener = function () {
+			return hoverListener
+		};
 		t.colLeft = colLeft;
 		t.colRight = colRight;
 		t.colContentLeft = colContentLeft;
 		t.colContentRight = colContentRight;
-		t.getDaySegmentContainer = function() { return daySegmentContainer };
-		t.getSlotSegmentContainer = function() { return slotSegmentContainer };
-		t.getMinMinute = function() { return minMinute };
-		t.getMaxMinute = function() { return maxMinute };
-		t.getSlotContainer = function() { return slotContainer };
-		t.getRowCnt = function() { return 1 };
-		t.getColCnt = function() { return colCnt };
-		t.getColWidth = function() { return colWidth };
-		t.getSnapHeight = function() { return snapHeight };
-		t.getSnapMinutes = function() { return snapMinutes };
+		t.getDaySegmentContainer = function () {
+			return daySegmentContainer
+		};
+		t.getSlotSegmentContainer = function () {
+			return slotSegmentContainer
+		};
+		t.getMinMinute = function () {
+			return minMinute
+		};
+		t.getMaxMinute = function () {
+			return maxMinute
+		};
+		t.getSlotContainer = function () {
+			return slotContainer
+		};
+		t.getRowCnt = function () {
+			return 1
+		};
+		t.getColCnt = function () {
+			return colCnt
+		};
+		t.getColWidth = function () {
+			return colWidth
+		};
+		t.getSnapHeight = function () {
+			return snapHeight
+		};
+		t.getSnapMinutes = function () {
+			return snapMinutes
+		};
 		t.defaultSelectionEnd = defaultSelectionEnd;
 		t.renderDayOverlay = renderDayOverlay;
 		t.renderSelection = renderSelection;
@@ -2880,7 +2954,6 @@ function enableTextSelection(element) {
 		var weekNumberFormat;
 
 
-
 		/* Rendering
 	-----------------------------------------------------------------------------*/
 
@@ -2921,7 +2994,6 @@ function enableTextSelection(element) {
 
 			snapMinutes = opt('snapMinutes') || opt('slotMinutes');
 		}
-
 
 
 		/* Build DOM
@@ -2971,7 +3043,7 @@ function enableTextSelection(element) {
 					"</div>"
 				);
 
-			}else{
+			} else {
 
 				daySegmentContainer = $([]); // in jQuery 1.4, we can just do $()
 
@@ -2996,7 +3068,7 @@ function enableTextSelection(element) {
 			maxd = addMinutes(cloneDate(d), maxMinute);
 			addMinutes(d, minMinute);
 			slotCnt = 0;
-			for (i=0; d < maxd; i++) {
+			for (i = 0; d < maxd; i++) {
 				minutes = d.getMinutes();
 				s +=
 					"<tr class='fc-slot" + i + ' ' + (!minutes ? '' : 'fc-minor') + "'>" +
@@ -3017,7 +3089,6 @@ function enableTextSelection(element) {
 
 			slotBind(slotTable.find('td'));
 		}
-
 
 
 		/* Build Day Table
@@ -3089,7 +3160,7 @@ function enableTextSelection(element) {
 				html += "<th class='fc-agenda-axis " + headerClass + "'> </th>";
 			}
 
-			for (col=0; col<colCnt; col++) {
+			for (col = 0; col < colCnt; col++) {
 				date = cellToDate(0, col);
 				html +=
 					"<th class='fc-" + dayIDs[date.getDay()] + " fc-col" + col + ' ' + headerClass + "'>" +
@@ -3124,7 +3195,7 @@ function enableTextSelection(element) {
 
 			cellsHTML = '';
 
-			for (col=0; col<colCnt; col++) {
+			for (col = 0; col < colCnt; col++) {
 
 				date = cellToDate(0, col);
 
@@ -3169,7 +3240,6 @@ function enableTextSelection(element) {
 
 
 		// TODO: data-date on the cells
-
 
 
 		/* Dimensions
@@ -3221,7 +3291,7 @@ function enableTextSelection(element) {
 			setOuterWidth(
 				axisFirstCells
 					.width('')
-					.each(function(i, _cell) {
+					.each(function (i, _cell) {
 						axisWidth = Math.max(axisWidth, $(_cell).outerWidth());
 					}),
 				axisWidth
@@ -3241,7 +3311,7 @@ function enableTextSelection(element) {
 					.show()
 					.prev()
 					.removeClass('fc-last');
-			}else{
+			} else {
 				gutterCells
 					.hide()
 					.prev()
@@ -3251,7 +3321,6 @@ function enableTextSelection(element) {
 			colWidth = Math.floor((slotTableWidth - axisWidth) / colCnt);
 			setOuterWidth(dayHeadCells.slice(0, -1), colWidth);
 		}
-
 
 
 		/* Scrolling
@@ -3266,6 +3335,7 @@ function enableTextSelection(element) {
 			function scroll() {
 				slotScroller.scrollTop(top);
 			}
+
 			scroll();
 			setTimeout(scroll, 0); // overrides any previous scroll state made by the browser
 		}
@@ -3274,7 +3344,6 @@ function enableTextSelection(element) {
 		function afterRender() { // after the view has been freshly rendered and sized
 			resetScroll();
 		}
-
 
 
 		/* Slot/Day clicking and binding
@@ -3295,25 +3364,25 @@ function enableTextSelection(element) {
 
 		function slotClick(ev) {
 			if (!opt('selectable')) { // if selectable, SelectionManager will worry about dayClick
-				var col = Math.min(colCnt-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
+				var col = Math.min(colCnt - 1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
 				var date = cellToDate(0, col);
 				var rowMatch = this.parentNode.className.match(/fc-slot(\d+)/); // TODO: maybe use data
 				if (rowMatch) {
 					var mins = parseInt(rowMatch[1]) * opt('slotMinutes');
-					var hours = Math.floor(mins/60);
+					var hours = Math.floor(mins / 60);
 					date.setHours(hours);
-					date.setMinutes(mins%60 + minMinute);
+					date.setMinutes(mins % 60 + minMinute);
 					trigger('dayClick', dayBodyCells[col], date, false, ev);
-				}else{
+				} else {
 					trigger('dayClick', dayBodyCells[col], date, true, ev);
 				}
 			}
 		}
 
 
-
 		/* Semi-transparent Overlay Helpers
 	-----------------------------------------------------*/
+
 		// TODO: should be consolidated with BasicView's methods
 
 
@@ -3325,7 +3394,7 @@ function enableTextSelection(element) {
 
 			var segments = rangeToSegments(overlayStart, overlayEnd);
 
-			for (var i=0; i<segments.length; i++) {
+			for (var i = 0; i < segments.length; i++) {
 				var segment = segments[i];
 				dayBind(
 					renderCellOverlay(
@@ -3346,7 +3415,7 @@ function enableTextSelection(element) {
 
 
 		function renderSlotOverlay(overlayStart, overlayEnd) {
-			for (var i=0; i<colCnt; i++) {
+			for (var i = 0; i < colCnt; i++) {
 				var dayStart = cellToDate(0, i);
 				var dayEnd = addDays(cloneDate(dayStart), 1);
 				var stretchStart = new Date(Math.max(dayStart, overlayStart));
@@ -3365,14 +3434,13 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Coordinate Utilities
 	-----------------------------------------------------------------------------*/
 
 
-		coordinateGrid = new CoordinateGrid(function(rows, cols) {
+		coordinateGrid = new CoordinateGrid(function (rows, cols) {
 			var e, n, p;
-			dayHeadCells.each(function(i, _e) {
+			dayHeadCells.each(function (i, _e) {
 				e = $(_e);
 				n = e.offset().left;
 				if (i) {
@@ -3385,18 +3453,20 @@ function enableTextSelection(element) {
 			if (opt('allDaySlot')) {
 				e = allDayRow;
 				n = e.offset().top;
-				rows[0] = [n, n+e.outerHeight()];
+				rows[0] = [n, n + e.outerHeight()];
 			}
 			var slotTableTop = slotContainer.offset().top;
 			var slotScrollerTop = slotScroller.offset().top;
 			var slotScrollerBottom = slotScrollerTop + slotScroller.outerHeight();
+
 			function constrain(n) {
 				return Math.max(slotScrollerTop, Math.min(slotScrollerBottom, n));
 			}
-			for (var i=0; i<slotCnt*snapRatio; i++) { // adapt slot count to increased/decreased selection slot count
+
+			for (var i = 0; i < slotCnt * snapRatio; i++) { // adapt slot count to increased/decreased selection slot count
 				rows.push([
-					constrain(slotTableTop + snapHeight*i),
-					constrain(slotTableTop + snapHeight*(i+1))
+					constrain(slotTableTop + snapHeight * i),
+					constrain(slotTableTop + snapHeight * (i + 1))
 				]);
 			}
 		});
@@ -3404,11 +3474,11 @@ function enableTextSelection(element) {
 
 		hoverListener = new HoverListener(coordinateGrid);
 
-		colPositions = new HorizontalPositionCache(function(col) {
+		colPositions = new HorizontalPositionCache(function (col) {
 			return dayBodyCellInners.eq(col);
 		});
 
-		colContentPositions = new HorizontalPositionCache(function(col) {
+		colContentPositions = new HorizontalPositionCache(function (col) {
 			return dayBodyCellContentInners.eq(col);
 		});
 
@@ -3461,7 +3531,7 @@ function enableTextSelection(element) {
 				return slotTable.height();
 			}
 			var slotMinutes = opt('slotMinutes'),
-				minutes = time.getHours()*60 + time.getMinutes() - minMinute,
+				minutes = time.getHours() * 60 + time.getMinutes() - minMinute,
 				slotI = Math.floor(minutes / slotMinutes),
 				slotTop = slotTopCache[slotI];
 			if (slotTop === undefined) {
@@ -3491,7 +3561,6 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Selection
 	---------------------------------------------------------------------------------*/
 
@@ -3509,7 +3578,7 @@ function enableTextSelection(element) {
 				if (opt('allDaySlot')) {
 					renderDayOverlay(startDate, addDays(cloneDate(endDate), 1), true);
 				}
-			}else{
+			} else {
 				renderSlotSelection(startDate, endDate);
 			}
 		}
@@ -3537,7 +3606,7 @@ function enableTextSelection(element) {
 									.css(rect)
 									.appendTo(slotContainer);
 							}
-						}else{
+						} else {
 							rect.isStart = true; // conside rect a "seg" now
 							rect.isEnd = true;   //
 							selectionHelper = $(slotSegHtml(
@@ -3560,7 +3629,7 @@ function enableTextSelection(element) {
 						}
 					}
 				}
-			}else{
+			} else {
 				renderSlotOverlay(startDate, endDate);
 			}
 		}
@@ -3579,7 +3648,7 @@ function enableTextSelection(element) {
 			if (ev.which == 1 && opt('selectable')) { // ev.which==1 means left mouse button
 				unselect(ev);
 				var dates;
-				hoverListener.start(function(cell, origCell) {
+				hoverListener.start(function (cell, origCell) {
 					clearSelection();
 					if (cell && cell.col == origCell.col && !getIsCellAllDay(cell)) {
 						var d1 = realCellToDate(origCell);
@@ -3591,11 +3660,11 @@ function enableTextSelection(element) {
 							addMinutes(cloneDate(d2), snapMinutes)
 						].sort(dateCompare);
 						renderSlotSelection(dates[0], dates[3]);
-					}else{
+					} else {
 						dates = null;
 					}
 				}, ev);
-				$(document).one('mouseup', function(ev) {
+				$(document).one('mouseup', function (ev) {
 					hoverListener.stop();
 					if (dates) {
 						if (+dates[0] == +dates[1]) {
@@ -3613,18 +3682,17 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* External Dragging
 	--------------------------------------------------------------------------------*/
 
 
 		function dragStart(_dragElement, ev, ui) {
-			hoverListener.start(function(cell) {
+			hoverListener.start(function (cell) {
 				clearOverlays();
 				if (cell) {
 					if (getIsCellAllDay(cell)) {
 						renderCellOverlay(cell.row, cell.col, cell.row, cell.col);
-					}else{
+					} else {
 						var d1 = realCellToDate(cell);
 						var d2 = addMinutes(cloneDate(d1), opt('defaultEventMinutes'));
 						renderSlotOverlay(d1, d2);
@@ -3645,7 +3713,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	function AgendaEventRenderer() {
 		var t = this;
@@ -3698,19 +3767,18 @@ function enableTextSelection(element) {
 		t.draggableDayEvent = draggableDayEvent;
 
 
-
 		/* Rendering
 	----------------------------------------------------------------------------*/
 
 
 		function renderEvents(events, modifiedEventId) {
-			var i, len=events.length,
-				dayEvents=[],
-				slotEvents=[];
-			for (i=0; i<len; i++) {
+			var i, len = events.length,
+				dayEvents = [],
+				slotEvents = [];
+			for (i = 0; i < len; i++) {
 				if (events[i].allDay) {
 					dayEvents.push(events[i]);
-				}else{
+				} else {
 					slotEvents.push(events[i]);
 				}
 			}
@@ -3741,7 +3809,7 @@ function enableTextSelection(element) {
 				colSegs,
 				segs = [];
 
-			for (i=0; i<colCnt; i++) {
+			for (i = 0; i < colCnt; i++) {
 
 				d = cellToDate(0, i);
 				addMinutes(d, minMinute);
@@ -3750,12 +3818,12 @@ function enableTextSelection(element) {
 					events,
 					visEventEnds,
 					d,
-					addMinutes(cloneDate(d), maxMinute-minMinute)
+					addMinutes(cloneDate(d), maxMinute - minMinute)
 				);
 
 				colSegs = placeSlotSegs(colSegs); // returns a new order
 
-				for (j=0; j<colSegs.length; j++) {
+				for (j = 0; j < colSegs.length; j++) {
 					seg = colSegs[j];
 					seg.col = i;
 					segs.push(seg);
@@ -3768,11 +3836,11 @@ function enableTextSelection(element) {
 
 		function sliceSegs(events, visEventEnds, start, end) {
 			var segs = [],
-				i, len=events.length, event,
+				i, len = events.length, event,
 				eventStart, eventEnd,
 				segStart, segEnd,
 				isStart, isEnd;
-			for (i=0; i<len; i++) {
+			for (i = 0; i < len; i++) {
 				event = events[i];
 				eventStart = event.start;
 				eventEnd = visEventEnds[i];
@@ -3780,14 +3848,14 @@ function enableTextSelection(element) {
 					if (eventStart < start) {
 						segStart = cloneDate(start);
 						isStart = false;
-					}else{
+					} else {
 						segStart = eventStart;
 						isStart = true;
 					}
 					if (eventEnd > end) {
 						segEnd = cloneDate(end);
 						isEnd = false;
-					}else{
+					} else {
 						segEnd = eventEnd;
 						isEnd = true;
 					}
@@ -3807,7 +3875,7 @@ function enableTextSelection(element) {
 		function slotEventEnd(event) {
 			if (event.end) {
 				return cloneDate(event.end);
-			}else{
+			} else {
 				return addMinutes(cloneDate(event.start), opt('defaultEventMinutes'));
 			}
 		}
@@ -3819,7 +3887,7 @@ function enableTextSelection(element) {
 
 		function renderSlotSegs(segs, modifiedEventId) {
 
-			var i, segCnt=segs.length, seg,
+			var i, segCnt = segs.length, seg,
 				event,
 				top,
 				bottom,
@@ -3839,7 +3907,7 @@ function enableTextSelection(element) {
 				isRTL = opt('isRTL');
 
 			// calculate position/dimensions, create html
-			for (i=0; i<segCnt; i++) {
+			for (i = 0; i < segCnt; i++) {
 				seg = segs[i];
 				event = seg.event;
 				top = timePosition(seg.start, seg.start);
@@ -3859,7 +3927,7 @@ function enableTextSelection(element) {
 					// double the width while making sure resize handle is visible
 					// (assumed to be 20px wide)
 					width = Math.max(
-						(width - (20/2)) * 2,
+						(width - (20 / 2)) * 2,
 						width // narrow columns will want to make the segment smaller than
 						// the natural width. don't allow it
 					);
@@ -3890,14 +3958,14 @@ function enableTextSelection(element) {
 			eventElements = slotSegmentContainer.children();
 
 			// retrieve elements, run through eventRender callback, bind event handlers
-			for (i=0; i<segCnt; i++) {
+			for (i = 0; i < segCnt; i++) {
 				seg = segs[i];
 				event = seg.event;
 				eventElement = $(eventElements[i]); // faster than eq()
 				triggerRes = trigger('eventRender', event, event, eventElement);
 				if (triggerRes === false) {
 					eventElement.remove();
-				}else{
+				} else {
 					if (triggerRes && triggerRes !== true) {
 						eventElement.remove();
 						eventElement = $(triggerRes)
@@ -3911,7 +3979,7 @@ function enableTextSelection(element) {
 					seg.element = eventElement;
 					if (event._id === modifiedEventId) {
 						bindSlotSeg(event, eventElement, seg);
-					}else{
+					} else {
 						eventElement[0]._fci = i; // for lazySegBind
 					}
 					reportEventElement(event, eventElement);
@@ -3921,7 +3989,7 @@ function enableTextSelection(element) {
 			lazySegBind(slotSegmentContainer, segs, bindSlotSeg);
 
 			// record event sides and title positions
-			for (i=0; i<segCnt; i++) {
+			for (i = 0; i < segCnt; i++) {
 				seg = segs[i];
 				if (eventElement = seg.element) {
 					seg.vsides = vsides(eventElement, true);
@@ -3934,7 +4002,7 @@ function enableTextSelection(element) {
 			}
 
 			// set all positions/dimensions at once
-			for (i=0; i<segCnt; i++) {
+			for (i = 0; i < segCnt; i++) {
 				seg = segs[i];
 				if (eventElement = seg.element) {
 					eventElement[0].style.width = Math.max(0, seg.outerWidth - seg.hsides) + 'px';
@@ -3975,7 +4043,7 @@ function enableTextSelection(element) {
 			}
 			if (url) {
 				html += "a href='" + htmlEscape(event.url) + "'";
-			}else{
+			} else {
 				html += "div";
 			}
 			html +=
@@ -4019,7 +4087,6 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Dragging
 	-----------------------------------------------------------------------------------*/
 
@@ -4042,11 +4109,11 @@ function enableTextSelection(element) {
 			eventElement.draggable({
 				opacity: opt('dragOpacity', 'month'), // use whatever the month view was using
 				revertDuration: opt('dragRevertDuration'),
-				start: function(ev, ui) {
+				start: function (ev, ui) {
 					trigger('eventDragStart', eventElement, event, ev, ui);
 					hideEvents(event, eventElement);
 					origWidth = eventElement.width();
-					hoverListener.start(function(cell, origCell) {
+					hoverListener.start(function (cell, origCell) {
 						clearOverlays();
 						if (cell) {
 							revert = false;
@@ -4060,7 +4127,7 @@ function enableTextSelection(element) {
 									addDays(exclEndDay(event), dayDelta)
 								);
 								resetElement();
-							}else{
+							} else {
 								// mouse is over bottom slots
 								if (isStart) {
 									if (allDay) {
@@ -4076,19 +4143,19 @@ function enableTextSelection(element) {
 										eventElement.draggable('option', 'grid', [colWidth, 1]);
 										allDay = false;
 									}
-								}else{
+								} else {
 									revert = true;
 								}
 							}
 							revert = revert || (allDay && !dayDelta);
-						}else{
+						} else {
 							resetElement();
 							revert = true;
 						}
 						eventElement.draggable('option', 'revert', revert);
 					}, ev, 'drag');
 				},
-				stop: function(ev, ui) {
+				stop: function (ev, ui) {
 					hoverListener.stop();
 					clearOverlays();
 					trigger('eventDragStop', eventElement, event, ev, ui);
@@ -4097,7 +4164,7 @@ function enableTextSelection(element) {
 						resetElement();
 						eventElement.css('filter', ''); // clear IE opacity side-effects
 						showEvents(event, eventElement);
-					}else{
+					} else {
 						// changed!
 						var minuteDelta = 0;
 						if (!allDay) {
@@ -4110,6 +4177,7 @@ function enableTextSelection(element) {
 					}
 				}
 			});
+
 			function resetElement() {
 				if (!allDay) {
 					eventElement
@@ -4142,11 +4210,11 @@ function enableTextSelection(element) {
 
 			eventElement.draggable({
 				scroll: false,
-				grid: [ colWidth, snapHeight ],
-				axis: colCnt==1 ? 'y' : false,
+				grid: [colWidth, snapHeight],
+				axis: colCnt == 1 ? 'y' : false,
 				opacity: opt('dragOpacity'),
 				revertDuration: opt('dragRevertDuration'),
-				start: function(ev, ui) {
+				start: function (ev, ui) {
 
 					trigger('eventDragStart', eventElement, event, ev, ui);
 					hideEvents(event, eventElement);
@@ -4163,7 +4231,7 @@ function enableTextSelection(element) {
 					minuteDelta = prevMinuteDelta = 0;
 
 				},
-				drag: function(ev, ui) {
+				drag: function (ev, ui) {
 
 					// NOTE: this `cell` value is only useful for determining in-bounds and all-day.
 					// Bad for anything else due to the discrepancy between the mouse position and the
@@ -4185,7 +4253,7 @@ function enableTextSelection(element) {
 							var origDate = cellToDate(0, origCell.col);
 							var col = origCell.col + colDelta;
 							col = Math.max(0, col);
-							col = Math.min(colCnt-1, col);
+							col = Math.min(colCnt - 1, col);
 							var date = cellToDate(0, col);
 							dayDelta = dayDiff(date, origDate);
 						}
@@ -4217,7 +4285,7 @@ function enableTextSelection(element) {
 					eventElement.draggable('option', 'revert', !isInBounds);
 
 				},
-				stop: function(ev, ui) {
+				stop: function (ev, ui) {
 
 					clearOverlays();
 					trigger('eventDragStop', eventElement, event, ev, ui);
@@ -4278,7 +4346,6 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Resizing
 	--------------------------------------------------------------------------------------*/
 
@@ -4292,12 +4359,12 @@ function enableTextSelection(element) {
 					s: '.ui-resizable-handle'
 				},
 				grid: snapHeight,
-				start: function(ev, ui) {
+				start: function (ev, ui) {
 					snapDelta = prevSnapDelta = 0;
 					hideEvents(event, eventElement);
 					trigger('eventResizeStart', this, event, ev, ui);
 				},
-				resize: function(ev, ui) {
+				resize: function (ev, ui) {
 					// don't rely on ui.size.height, doesn't take grid into account
 					snapDelta = Math.round((Math.max(snapHeight, eventElement.height()) - ui.originalSize.height) / snapHeight);
 					if (snapDelta != prevSnapDelta) {
@@ -4305,18 +4372,18 @@ function enableTextSelection(element) {
 							formatDates(
 								event.start,
 								(!snapDelta && !event.end) ? null : // no change, so don't display time range
-									addMinutes(eventEnd(event), snapMinutes*snapDelta),
+									addMinutes(eventEnd(event), snapMinutes * snapDelta),
 								opt('timeFormat')
 							)
 						);
 						prevSnapDelta = snapDelta;
 					}
 				},
-				stop: function(ev, ui) {
+				stop: function (ev, ui) {
 					trigger('eventResizeStop', this, event, ev, ui);
 					if (snapDelta) {
-						eventResize(this, event, 0, snapMinutes*snapDelta, ev, ui);
-					}else{
+						eventResize(this, event, 0, snapMinutes * snapDelta, ev, ui);
+					} else {
 						showEvents(event, eventElement);
 						// BUG: if event was really short, need to put title back in span
 					}
@@ -4326,7 +4393,6 @@ function enableTextSelection(element) {
 
 
 	}
-
 
 
 	/* Agenda Event Segment Utilities
@@ -4344,11 +4410,11 @@ function enableTextSelection(element) {
 
 		if (level0) {
 
-			for (i=0; i<level0.length; i++) {
+			for (i = 0; i < level0.length; i++) {
 				computeSlotSegPressures(level0[i]);
 			}
 
-			for (i=0; i<level0.length; i++) {
+			for (i = 0; i < level0.length; i++) {
 				computeSlotSegCoords(level0[i], 0, 0);
 			}
 		}
@@ -4364,11 +4430,11 @@ function enableTextSelection(element) {
 		var i, seg;
 		var j;
 
-		for (i=0; i<segs.length; i++) {
+		for (i = 0; i < segs.length; i++) {
 			seg = segs[i];
 
 			// go through all the levels and stop on the first level where there are no collisions
-			for (j=0; j<levels.length; j++) {
+			for (j = 0; j < levels.length; j++) {
 				if (!computeSlotSegCollisions(seg, levels[j]).length) {
 					break;
 				}
@@ -4388,14 +4454,14 @@ function enableTextSelection(element) {
 		var j, seg;
 		var k;
 
-		for (i=0; i<levels.length; i++) {
+		for (i = 0; i < levels.length; i++) {
 			level = levels[i];
 
-			for (j=0; j<level.length; j++) {
+			for (j = 0; j < level.length; j++) {
 				seg = level[j];
 
 				seg.forwardSegs = [];
-				for (k=i+1; k<levels.length; k++) {
+				for (k = i + 1; k < levels.length; k++) {
 					computeSlotSegCollisions(seg, levels[k], seg.forwardSegs);
 				}
 			}
@@ -4412,7 +4478,7 @@ function enableTextSelection(element) {
 
 		if (seg.forwardPressure === undefined) { // not already computed
 
-			for (i=0; i<forwardSegs.length; i++) {
+			for (i = 0; i < forwardSegs.length; i++) {
 				forwardSeg = forwardSegs[i];
 
 				// figure out the child's maximum forward path
@@ -4468,7 +4534,7 @@ function enableTextSelection(element) {
 
 			// use this segment's coordinates to computed the coordinates of the less-pressurized
 			// forward segments
-			for (i=0; i<forwardSegs.length; i++) {
+			for (i = 0; i < forwardSegs.length; i++) {
 				computeSlotSegCoords(forwardSegs[i], 0, seg.forwardCoord);
 			}
 		}
@@ -4481,10 +4547,10 @@ function enableTextSelection(element) {
 		var i, level;
 		var j;
 
-		for (i=0; i<levels.length; i++) {
+		for (i = 0; i < levels.length; i++) {
 			level = levels[i];
 
-			for (j=0; j<level.length; j++) {
+			for (j = 0; j < level.length; j++) {
 				segs.push(level[j]);
 			}
 		}
@@ -4498,7 +4564,7 @@ function enableTextSelection(element) {
 	function computeSlotSegCollisions(seg, otherSegs, results) {
 		results = results || [];
 
-		for (var i=0; i<otherSegs.length; i++) {
+		for (var i = 0; i < otherSegs.length; i++) {
 			if (isSlotSegCollision(seg, otherSegs[i])) {
 				results.push(otherSegs[i]);
 			}
@@ -4534,7 +4600,8 @@ function enableTextSelection(element) {
 	}
 
 
-	;;
+	;
+	;
 
 
 	function View(element, calendar, viewName) {
@@ -4577,7 +4644,6 @@ function enableTextSelection(element) {
 		var options = calendar.options;
 
 
-
 		function opt(name, viewNameOverride) {
 			var v = options[name];
 			if ($.isPlainObject(v)) {
@@ -4593,7 +4659,6 @@ function enableTextSelection(element) {
 				[name, thisObj || t].concat(Array.prototype.slice.call(arguments, 2), [t])
 			);
 		}
-
 
 
 		/* Event Editable Boolean Calculations
@@ -4628,19 +4693,18 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Event Data
 	------------------------------------------------------------------------------*/
 
 
 		function setEventData(events) { // events are already normalized at this point
 			eventsByID = {};
-			var i, len=events.length, event;
-			for (i=0; i<len; i++) {
+			var i, len = events.length, event;
+			for (i = 0; i < len; i++) {
 				event = events[i];
 				if (eventsByID[event._id]) {
 					eventsByID[event._id].push(event);
-				}else{
+				} else {
 					eventsByID[event._id] = [event];
 				}
 			}
@@ -4660,24 +4724,23 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Event Elements
 	------------------------------------------------------------------------------*/
 
 
 		// report when view creates an element for an event
 		function reportEventElement(event, element) {
-			eventElementCouples.push({ event: event, element: element });
+			eventElementCouples.push({event: event, element: element});
 			if (eventElementsByID[event._id]) {
 				eventElementsByID[event._id].push(element);
-			}else{
+			} else {
 				eventElementsByID[event._id] = [element];
 			}
 		}
 
 
 		function triggerEventDestroy() {
-			$.each(eventElementCouples, function(i, couple) {
+			$.each(eventElementCouples, function (i, couple) {
 				t.trigger('eventDestroy', couple.event, couple.event, couple.element);
 			});
 		}
@@ -4686,17 +4749,17 @@ function enableTextSelection(element) {
 		// attaches eventClick, eventMouseover, eventMouseout
 		function eventElementHandlers(event, eventElement) {
 			eventElement
-				.click(function(ev) {
+				.click(function (ev) {
 					if (!eventElement.hasClass('ui-draggable-dragging') &&
 						!eventElement.hasClass('ui-resizable-resizing')) {
 						return trigger('eventClick', this, event, ev);
 					}
 				})
 				.hover(
-					function(ev) {
+					function (ev) {
 						trigger('eventMouseover', this, event, ev);
 					},
-					function(ev) {
+					function (ev) {
 						trigger('eventMouseout', this, event, ev);
 					}
 				);
@@ -4720,13 +4783,12 @@ function enableTextSelection(element) {
 			// and multiple segments per event
 			var elements = eventElementsByID[event._id],
 				i, len = elements.length;
-			for (i=0; i<len; i++) {
+			for (i = 0; i < len; i++) {
 				if (!exceptElement || elements[i][0] != exceptElement[0]) {
 					elements[i][funcName]();
 				}
 			}
 		}
-
 
 
 		/* Event Modification Reporting
@@ -4744,7 +4806,7 @@ function enableTextSelection(element) {
 				dayDelta,
 				minuteDelta,
 				allDay,
-				function() {
+				function () {
 					// TODO: investigate cases where this inverse technique might not work
 					moveEvents(eventsByID[eventId], -dayDelta, -minuteDelta, oldAllDay);
 					reportEventChange(eventId);
@@ -4765,7 +4827,7 @@ function enableTextSelection(element) {
 				event,
 				dayDelta,
 				minuteDelta,
-				function() {
+				function () {
 					// TODO: investigate cases where this inverse technique might not work
 					elongateEvents(eventsByID[eventId], -dayDelta, -minuteDelta);
 					reportEventChange(eventId);
@@ -4777,14 +4839,13 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Event Modification Math
 	---------------------------------------------------------------------------------*/
 
 
 		function moveEvents(events, dayDelta, minuteDelta, allDay) {
 			minuteDelta = minuteDelta || 0;
-			for (var e, len=events.length, i=0; i<len; i++) {
+			for (var e, len = events.length, i = 0; i < len; i++) {
 				e = events[i];
 				if (allDay !== undefined) {
 					e.allDay = allDay;
@@ -4800,13 +4861,12 @@ function enableTextSelection(element) {
 
 		function elongateEvents(events, dayDelta, minuteDelta) {
 			minuteDelta = minuteDelta || 0;
-			for (var e, len=events.length, i=0; i<len; i++) {
+			for (var e, len = events.length, i = 0; i < len; i++) {
 				e = events[i];
 				e.end = addMinutes(addDays(eventEnd(e), dayDelta, true), minuteDelta);
 				normalizeEvent(e, options);
 			}
 		}
-
 
 
 		// ====================================================================================================
@@ -4856,7 +4916,7 @@ function enableTextSelection(element) {
 
 
 		// initialize important internal variables
-		(function() {
+		(function () {
 
 			if (opt('weekends') === false) {
 				hiddenDays.push(0, 6); // 0=sunday, 6=saturday
@@ -4864,7 +4924,7 @@ function enableTextSelection(element) {
 
 			// Loop through a hypothetical week and determine which
 			// days-of-week are hidden. Record in both hashes (one is the reverse of the other).
-			for (var dayIndex=0, cellIndex=0; dayIndex<7; dayIndex++) {
+			for (var dayIndex = 0, cellIndex = 0; dayIndex < 7; dayIndex++) {
 				dayToCellMap[dayIndex] = cellIndex;
 				isHiddenDayHash[dayIndex] = $.inArray(dayIndex, hiddenDays) != -1;
 				if (!isHiddenDayHash[dayIndex]) {
@@ -4903,7 +4963,7 @@ function enableTextSelection(element) {
 		function skipHiddenDays(date, inc, isExclusive) {
 			inc = inc || 1;
 			while (
-				isHiddenDayHash[ ( date.getDay() + (isExclusive ? inc : 0) + 7 ) % 7 ]
+				isHiddenDayHash[(date.getDay() + (isExclusive ? inc : 0) + 7) % 7]
 				) {
 				addDays(date, inc);
 			}
@@ -5033,7 +5093,7 @@ function enableTextSelection(element) {
 			var rangeCellOffsetLast = dayOffsetToCellOffset(rangeDayOffsetEnd) - 1;
 
 			// loop through all the rows in the view
-			for (var row=0; row<rowCnt; row++) {
+			for (var row = 0; row < rowCnt; row++) {
 
 				// first and last cell offset for the row
 				var rowCellOffsetFirst = row * colCnt;
@@ -5051,7 +5111,7 @@ function enableTextSelection(element) {
 					var segmentCellLast = cellOffsetToCell(segmentCellOffsetLast);
 
 					// view might be RTL, so order by leftmost column
-					var cols = [ segmentCellFirst.col, segmentCellLast.col ].sort();
+					var cols = [segmentCellFirst.col, segmentCellLast.col].sort();
 
 					// Determine if segment's first/last cell is the beginning/end of the date range.
 					// We need to compare "day offset" because "cell offsets" are often ambiguous and
@@ -5076,7 +5136,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	function DayEventRenderer() {
 		var t = this;
@@ -5136,7 +5197,7 @@ function enableTextSelection(element) {
 			);
 
 			// report the elements to the View, for general drag/resize utilities
-			segmentElementEach(segments, function(segment, element) {
+			segmentElementEach(segments, function (segment, element) {
 				reportEventElement(segment.event, element);
 			});
 
@@ -5144,7 +5205,7 @@ function enableTextSelection(element) {
 			attachHandlers(segments, modifiedEventId);
 
 			// call `eventAfterRender` callback for each event
-			segmentElementEach(segments, function(segment, element) {
+			segmentElementEach(segments, function (segment, element) {
 				trigger('eventAfterRender', segment.event, segment.event, element);
 			});
 		}
@@ -5160,7 +5221,7 @@ function enableTextSelection(element) {
 			// actually render the event. `true` for appending element to container.
 			// Recieve the intermediate "segment" data structures.
 			var segments = _renderDayEvents(
-				[ event ],
+				[event],
 				true, // append event elements
 				false // don't set the heights of the rows
 			);
@@ -5168,7 +5229,7 @@ function enableTextSelection(element) {
 			var elements = [];
 
 			// Adjust certain elements' top coordinates
-			segmentElementEach(segments, function(segment, element) {
+			segmentElementEach(segments, function (segment, element) {
 				if (segment.row === adjustRow) {
 					element.css('top', adjustTop);
 				}
@@ -5221,12 +5282,12 @@ function enableTextSelection(element) {
 			// We need this for setting each element's desired outer width, because of the W3C box model.
 			// It's important we do this in a separate pass from acually setting the width on the DOM elements
 			// because alternating reading/writing dimensions causes reflow for every iteration.
-			segmentElementEach(segments, function(segment, element) {
+			segmentElementEach(segments, function (segment, element) {
 				segment.hsides = hsides(element, true); // include margins = `true`
 			});
 
 			// Set the width of each element
-			segmentElementEach(segments, function(segment, element) {
+			segmentElementEach(segments, function (segment, element) {
 				element.width(
 					Math.max(0, segment.outerWidth - segment.hsides)
 				);
@@ -5234,7 +5295,7 @@ function enableTextSelection(element) {
 
 			// Grab each element's outerHeight (setVerticals uses this).
 			// To get an accurate reading, it's important to have each element's width explicitly set already.
-			segmentElementEach(segments, function(segment, element) {
+			segmentElementEach(segments, function (segment, element) {
 				segment.outerHeight = element.outerHeight(true); // include margins = `true`
 			});
 
@@ -5248,7 +5309,7 @@ function enableTextSelection(element) {
 		// Generate an array of "segments" for all events.
 		function buildSegments(events) {
 			var segments = [];
-			for (var i=0; i<events.length; i++) {
+			for (var i = 0; i < events.length; i++) {
 				var eventSegments = buildSegmentsForEvent(events[i]);
 				segments.push.apply(segments, eventSegments); // append an array to an array
 			}
@@ -5263,7 +5324,7 @@ function enableTextSelection(element) {
 			var startDate = event.start;
 			var endDate = exclEndDay(event);
 			var segments = rangeToSegments(startDate, endDate);
-			for (var i=0; i<segments.length; i++) {
+			for (var i = 0; i < segments.length; i++) {
 				segments[i].event = event;
 			}
 			return segments;
@@ -5274,7 +5335,7 @@ function enableTextSelection(element) {
 		// These values are the desired dimensions for the eventual DOM elements.
 		function calculateHorizontals(segments) {
 			var isRTL = opt('isRTL');
-			for (var i=0; i<segments.length; i++) {
+			for (var i = 0; i < segments.length; i++) {
 				var segment = segments[i];
 
 				// Determine functions used for calulating the elements left/right coordinates,
@@ -5296,7 +5357,7 @@ function enableTextSelection(element) {
 		// Build a concatenated HTML string for an array of segments
 		function buildHTML(segments) {
 			var html = '';
-			for (var i=0; i<segments.length; i++) {
+			for (var i = 0; i < segments.length; i++) {
 				html += buildHTMLForSegment(segments[i]);
 			}
 			return html;
@@ -5314,7 +5375,7 @@ function enableTextSelection(element) {
 			var url = event.url;
 
 			// generate the list of CSS classNames
-			var classNames = [ 'fc-event', 'fc-event-hori' ];
+			var classNames = ['fc-event', 'fc-event-hori'];
 			if (isEventDraggable(event)) {
 				classNames.push('fc-event-draggable');
 			}
@@ -5338,7 +5399,7 @@ function enableTextSelection(element) {
 
 			if (url) {
 				html += "<a href='" + htmlEscape(url) + "'";
-			}else{
+			} else {
 				html += "<div";
 			}
 			html +=
@@ -5386,7 +5447,7 @@ function enableTextSelection(element) {
 		// Run each element through the `eventRender` filter, which allows developers to
 		// modify an existing element, supply a new one, or cancel rendering.
 		function resolveElements(segments, elements) {
-			for (var i=0; i<segments.length; i++) {
+			for (var i = 0; i < segments.length; i++) {
 				var segment = segments[i];
 				var event = segment.event;
 				var element = elements.eq(i);
@@ -5419,7 +5480,6 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Top-coordinate Methods
 	-------------------------------------------------------------------------------------------------*/
 
@@ -5434,14 +5494,14 @@ function enableTextSelection(element) {
 
 			// Set each row's height by setting height of first inner div
 			if (doRowHeights) {
-				for (var i=0; i<rowContentElements.length; i++) {
+				for (var i = 0; i < rowContentElements.length; i++) {
 					rowContentElements[i].height(rowContentHeights[i]);
 				}
 			}
 
 			// Get each row's top, relative to the views's origin.
 			// Important to do this after setting each row's height.
-			for (var i=0; i<rowContentElements.length; i++) {
+			for (var i = 0; i < rowContentElements.length; i++) {
 				rowContentTops.push(
 					rowContentElements[i].position().top
 				);
@@ -5449,7 +5509,7 @@ function enableTextSelection(element) {
 
 			// Set each segment element's CSS "top" property.
 			// Each segment object has a "top" property, which is relative to the row's top, but...
-			segmentElementEach(segments, function(segment, element) {
+			segmentElementEach(segments, function (segment, element) {
 				element.css(
 					'top',
 					rowContentTops[segment.row] + segment.top // ...now, relative to views's origin
@@ -5468,18 +5528,18 @@ function enableTextSelection(element) {
 			var rowContentHeights = []; // content height for each row
 			var segmentRows = buildSegmentRows(segments); // an array of segment arrays, one for each row
 
-			for (var rowI=0; rowI<rowCnt; rowI++) {
+			for (var rowI = 0; rowI < rowCnt; rowI++) {
 				var segmentRow = segmentRows[rowI];
 
 				// an array of running total heights for each column.
 				// initialize with all zeros.
 				var colHeights = [];
-				for (var colI=0; colI<colCnt; colI++) {
+				for (var colI = 0; colI < colCnt; colI++) {
 					colHeights.push(0);
 				}
 
 				// loop through every segment
-				for (var segmentI=0; segmentI<segmentRow.length; segmentI++) {
+				for (var segmentI = 0; segmentI < segmentRow.length; segmentI++) {
 					var segment = segmentRow[segmentI];
 
 					// find the segment's top coordinate by looking at the max height
@@ -5492,7 +5552,7 @@ function enableTextSelection(element) {
 					);
 
 					// adjust the columns to account for the segment's height
-					for (var colI=segment.leftCol; colI<=segment.rightCol; colI++) {
+					for (var colI = segment.leftCol; colI <= segment.rightCol; colI++) {
 						colHeights[colI] = segment.top + segment.outerHeight;
 					}
 				}
@@ -5515,7 +5575,7 @@ function enableTextSelection(element) {
 			var rowI;
 
 			// group segments by row
-			for (segmentI=0; segmentI<segments.length; segmentI++) {
+			for (segmentI = 0; segmentI < segments.length; segmentI++) {
 				segment = segments[segmentI];
 				rowI = segment.row;
 				if (segment.element) { // was rendered?
@@ -5525,13 +5585,13 @@ function enableTextSelection(element) {
 					}
 					else {
 						// first segment in row. create new array
-						segmentRows[rowI] = [ segment ];
+						segmentRows[rowI] = [segment];
 					}
 				}
 			}
 
 			// sort each row
-			for (rowI=0; rowI<rowCnt; rowI++) {
+			for (rowI = 0; rowI < rowCnt; rowI++) {
 				segmentRows[rowI] = sortSegmentRow(
 					segmentRows[rowI] || [] // guarantee an array, even if no segments
 				);
@@ -5549,7 +5609,7 @@ function enableTextSelection(element) {
 			var subrows = buildSegmentSubrows(segments);
 
 			// flatten it
-			for (var i=0; i<subrows.length; i++) {
+			for (var i = 0; i < subrows.length; i++) {
 				sortedSegments.push.apply(sortedSegments, subrows[i]); // append an array to an array
 			}
 
@@ -5566,12 +5626,12 @@ function enableTextSelection(element) {
 			segments.sort(compareDaySegments);
 
 			var subrows = [];
-			for (var i=0; i<segments.length; i++) {
+			for (var i = 0; i < segments.length; i++) {
 				var segment = segments[i];
 
 				// loop through subrows, starting with the topmost, until the segment
 				// doesn't collide with other segments.
-				for (var j=0; j<subrows.length; j++) {
+				for (var j = 0; j < subrows.length; j++) {
 					if (!isDaySegmentCollision(segment, subrows[j])) {
 						break;
 					}
@@ -5581,7 +5641,7 @@ function enableTextSelection(element) {
 					subrows[j].push(segment);
 				}
 				else {
-					subrows[j] = [ segment ];
+					subrows[j] = [segment];
 				}
 			}
 
@@ -5596,7 +5656,7 @@ function enableTextSelection(element) {
 			var i;
 			var rowCnt = getRowCnt();
 			var rowDivs = [];
-			for (i=0; i<rowCnt; i++) {
+			for (i = 0; i < rowCnt; i++) {
 				rowDivs[i] = allDayRow(i)
 					.find('div.fc-day-content > div');
 			}
@@ -5604,20 +5664,20 @@ function enableTextSelection(element) {
 		}
 
 
-
 		/* Mouse Handlers
 	---------------------------------------------------------------------------------------------------*/
+
 		// TODO: better documentation!
 
 
 		function attachHandlers(segments, modifiedEventId) {
 			var segmentContainer = getDaySegmentContainer();
 
-			segmentElementEach(segments, function(segment, element, i) {
+			segmentElementEach(segments, function (segment, element, i) {
 				var event = segment.event;
 				if (event._id === modifiedEventId) {
 					bindDaySeg(event, element, segment);
-				}else{
+				} else {
 					element[0]._fci = i; // for lazySegBind
 				}
 			});
@@ -5652,10 +5712,10 @@ function enableTextSelection(element) {
 				delay: 50,
 				opacity: opt('dragOpacity'),
 				revertDuration: opt('dragRevertDuration'),
-				start: function(ev, ui) {
+				start: function (ev, ui) {
 					trigger('eventDragStart', eventElement, event, ev, ui);
 					hideEvents(event, eventElement);
-					hoverListener.start(function(cell, origCell, rowDelta, colDelta) {
+					hoverListener.start(function (cell, origCell, rowDelta, colDelta) {
 						eventElement.draggable('option', 'revert', !cell || !rowDelta && !colDelta);
 						clearOverlays();
 						if (cell) {
@@ -5666,18 +5726,18 @@ function enableTextSelection(element) {
 								addDays(cloneDate(event.start), dayDelta),
 								addDays(exclEndDay(event), dayDelta)
 							);
-						}else{
+						} else {
 							dayDelta = 0;
 						}
 					}, ev, 'drag');
 				},
-				stop: function(ev, ui) {
+				stop: function (ev, ui) {
 					hoverListener.stop();
 					clearOverlays();
 					trigger('eventDragStop', eventElement, event, ev, ui);
 					if (dayDelta) {
 						eventDrop(this, event, dayDelta, 0, event.allDay, ev, ui);
-					}else{
+					} else {
 						eventElement.css('filter', ''); // clear IE opacity side-effects
 						showEvents(event, eventElement);
 					}
@@ -5695,10 +5755,10 @@ function enableTextSelection(element) {
 			// TODO: look into using jquery-ui mouse widget for this stuff
 			disableTextSelection(element); // prevent native <a> selection for IE
 			element
-				.mousedown(function(ev) { // prevent native <a> selection for others
+				.mousedown(function (ev) { // prevent native <a> selection for others
 					ev.preventDefault();
 				})
-				.click(function(ev) {
+				.click(function (ev) {
 					if (isResizing) {
 						ev.preventDefault(); // prevent link from being visited (only method that worked in IE6)
 						ev.stopImmediatePropagation(); // prevent fullcalendar eventClick handler from being called
@@ -5706,7 +5766,7 @@ function enableTextSelection(element) {
 					}
 				});
 
-			handle.mousedown(function(ev) {
+			handle.mousedown(function (ev) {
 				if (ev.which != 1) {
 					return; // needs to be left mouse button
 				}
@@ -5718,13 +5778,13 @@ function enableTextSelection(element) {
 				var dayDelta;
 				var helpers;
 				var eventCopy = $.extend({}, event);
-				var minCellOffset = dayOffsetToCellOffset( dateToDayOffset(event.start) );
+				var minCellOffset = dayOffsetToCellOffset(dateToDayOffset(event.start));
 				clearSelection();
 				$('body')
 					.css('cursor', direction + '-resize')
 					.one('mouseup', mouseup);
 				trigger('eventResizeStart', this, event, ev);
-				hoverListener.start(function(cell, origCell) {
+				hoverListener.start(function (cell, origCell) {
 					if (cell) {
 
 						var origCellOffset = cellToCellOffset(origCell);
@@ -5761,7 +5821,7 @@ function enableTextSelection(element) {
 						clearOverlays();
 						renderDayOverlay( // coordinate grid already rebuilt with hoverListener.start()
 							event.start,
-							addDays( exclEndDay(event), dayDelta )
+							addDays(exclEndDay(event), dayDelta)
 							// TODO: instead of calling renderDayOverlay() with dates,
 							// call _renderDayOverlay (or whatever) with cell offsets.
 						);
@@ -5779,9 +5839,9 @@ function enableTextSelection(element) {
 					}
 					// otherwise, the drag handler already restored the old events
 
-					setTimeout(function() { // make this happen after the element's click event
+					setTimeout(function () { // make this happen after the element's click event
 						isResizing = false;
-					},0);
+					}, 0);
 				}
 			});
 		}
@@ -5790,13 +5850,12 @@ function enableTextSelection(element) {
 	}
 
 
-
 	/* Generalized Segment Utilities
 -------------------------------------------------------------------------------------------------*/
 
 
 	function isDaySegmentCollision(segment, otherSegments) {
-		for (var i=0; i<otherSegments.length; i++) {
+		for (var i = 0; i < otherSegments.length; i++) {
 			var otherSegment = otherSegments[i];
 			if (
 				otherSegment.leftCol <= segment.rightCol &&
@@ -5810,7 +5869,7 @@ function enableTextSelection(element) {
 
 
 	function segmentElementEach(segments, callback) { // TODO: use in AgendaView?
-		for (var i=0; i<segments.length; i++) {
+		for (var i = 0; i < segments.length; i++) {
 			var segment = segments[i];
 			var element = segment.element;
 			if (element) {
@@ -5829,7 +5888,8 @@ function enableTextSelection(element) {
 	}
 
 
-	;;
+	;
+	;
 
 //BUG: unselect needs to be triggered when events are dragged+dropped
 
@@ -5856,10 +5916,9 @@ function enableTextSelection(element) {
 		var selected = false;
 
 
-
 		// unselectAuto
 		if (opt('selectable') && opt('unselectAuto')) {
-			$(document).mousedown(function(ev) {
+			$(document).mousedown(function (ev) {
 				var ignore = opt('unselectCancel');
 				if (ignore) {
 					if ($(ev.target).parents(ignore).length) { // could be optimized to stop after first match
@@ -5905,16 +5964,16 @@ function enableTextSelection(element) {
 				unselect(ev);
 				var _mousedownElement = this;
 				var dates;
-				hoverListener.start(function(cell, origCell) { // TODO: maybe put cellToDate/getIsCellAllDay info in cell
+				hoverListener.start(function (cell, origCell) { // TODO: maybe put cellToDate/getIsCellAllDay info in cell
 					clearSelection();
 					if (cell && getIsCellAllDay(cell)) {
-						dates = [ cellToDate(origCell), cellToDate(cell) ].sort(dateCompare);
+						dates = [cellToDate(origCell), cellToDate(cell)].sort(dateCompare);
 						renderSelection(dates[0], dates[1], true);
-					}else{
+					} else {
 						dates = null;
 					}
 				}, ev);
-				$(document).one('mouseup', function(ev) {
+				$(document).one('mouseup', function (ev) {
 					hoverListener.stop();
 					if (dates) {
 						if (+dates[0] == +dates[1]) {
@@ -5929,7 +5988,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	function OverlayManager() {
 		var t = this;
@@ -5968,7 +6028,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	function CoordinateGrid(buildFunc) {
 
@@ -5977,34 +6038,34 @@ function enableTextSelection(element) {
 		var cols;
 
 
-		t.build = function() {
+		t.build = function () {
 			rows = [];
 			cols = [];
 			buildFunc(rows, cols);
 		};
 
 
-		t.cell = function(x, y) {
+		t.cell = function (x, y) {
 			var rowCnt = rows.length;
 			var colCnt = cols.length;
-			var i, r=-1, c=-1;
-			for (i=0; i<rowCnt; i++) {
+			var i, r = -1, c = -1;
+			for (i = 0; i < rowCnt; i++) {
 				if (y >= rows[i][0] && y < rows[i][1]) {
 					r = i;
 					break;
 				}
 			}
-			for (i=0; i<colCnt; i++) {
+			for (i = 0; i < colCnt; i++) {
 				if (x >= cols[i][0] && x < cols[i][1]) {
 					c = i;
 					break;
 				}
 			}
-			return (r>=0 && c>=0) ? { row:r, col:c } : null;
+			return (r >= 0 && c >= 0) ? {row: r, col: c} : null;
 		};
 
 
-		t.rect = function(row0, col0, row1, col1, originElement) { // row1,col1 is inclusive
+		t.rect = function (row0, col0, row1, col1, originElement) { // row1,col1 is inclusive
 			var origin = originElement.offset();
 			return {
 				top: rows[row0][0] - origin.top,
@@ -6016,7 +6077,8 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 	function HoverListener(coordinateGrid) {
 
@@ -6028,7 +6090,7 @@ function enableTextSelection(element) {
 		var cell;
 
 
-		t.start = function(_change, ev, _bindType) {
+		t.start = function (_change, ev, _bindType) {
 			change = _change;
 			firstCell = cell = null;
 			coordinateGrid.build();
@@ -6046,8 +6108,8 @@ function enableTextSelection(element) {
 					if (!firstCell) {
 						firstCell = newCell;
 					}
-					change(newCell, firstCell, newCell.row-firstCell.row, newCell.col-firstCell.col);
-				}else{
+					change(newCell, firstCell, newCell.row - firstCell.row, newCell.col - firstCell.col);
+				} else {
 					change(newCell, firstCell);
 				}
 				cell = newCell;
@@ -6055,14 +6117,13 @@ function enableTextSelection(element) {
 		}
 
 
-		t.stop = function() {
+		t.stop = function () {
 			$(document).unbind(bindType, mouse);
 			return cell;
 		};
 
 
 	}
-
 
 
 // this fix was only necessary for jQuery UI 1.8.16 (and jQuery 1.7 or 1.7.1)
@@ -6076,7 +6137,8 @@ function enableTextSelection(element) {
 			event.pageY = event.originalEvent.pageY;
 		}
 	}
-	;;
+	;
+	;
 
 	function HorizontalPositionCache(getElement) {
 
@@ -6089,15 +6151,15 @@ function enableTextSelection(element) {
 			return elements[i] = elements[i] || getElement(i);
 		}
 
-		t.left = function(i) {
+		t.left = function (i) {
 			return lefts[i] = lefts[i] === undefined ? e(i).position().left : lefts[i];
 		};
 
-		t.right = function(i) {
+		t.right = function (i) {
 			return rights[i] = rights[i] === undefined ? t.left(i) + e(i).width() : rights[i];
 		};
 
-		t.clear = function() {
+		t.clear = function () {
 			elements = {};
 			lefts = {};
 			rights = {};
@@ -6105,6 +6167,7 @@ function enableTextSelection(element) {
 
 	}
 
-	;;
+	;
+	;
 
 })(jQuery);

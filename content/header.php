@@ -1,3 +1,8 @@
+<!--
+Header included on every page.
+
+Added header bar, checks login information, home variables.
+-->
 <?php
 include_once(__DIR__ . "/../variables.php");
 include_once(__DIR__ . "/../login/check.php");

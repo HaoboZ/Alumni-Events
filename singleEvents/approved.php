@@ -1,3 +1,8 @@
+<!--
+Approves event given id in header.
+
+Redirects to event page.
+-->
 <?php
 include_once(__DIR__ . "/../database/database_connection.php");
 include_once(__DIR__ . "/../login/check.php");

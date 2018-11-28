@@ -1,3 +1,8 @@
+<!--
+Login page for admins.
+
+These are set directly, accounts need to be added to the database directly.
+-->
 <?php
 include_once(__DIR__ . "/../database/database_connection.php");
 include_once('check.php');

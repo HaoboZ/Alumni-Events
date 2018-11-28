@@ -1,3 +1,9 @@
+<!--
+Main events page.
+
+Shows list of events if no id parameter is passed in from the header.
+If there is id in header, will show detailed event information based on id.
+-->
 <?php
 include_once("../database/database_connection.php");
 include_once('../login/check.php');
@@ -19,15 +25,15 @@ if (isset($_GET['id'])) {
 <div class="container">
 	<?php include("../content/header.php"); ?>
 	<?php
-if($admin){
-	$query = oci_parse($connect, "
+	if ($admin) {
+		$query = oci_parse($connect, "
 			SELECT * FROM events
 			");
-}else{
-	$query = oci_parse($connect, "
+	} else {
+		$query = oci_parse($connect, "
 			SELECT * FROM events WHERE event_approved = 1
 			");
-}
+	}
 	$message = '';
 	if (!oci_execute($query)) $message = 'sql error';
 	echo $message;
@@ -58,12 +64,15 @@ if($admin){
 		</thead>
 		<tbody>
 		<?php while ($event = oci_fetch_assoc($query)) {
-		echo '
-		<tr'; if($event["EVENT_APPROVED"]==0){ echo ' bgcolor="#FF9999"';}
-		echo '>
+			echo '
+		<tr';
+			if ($event["EVENT_APPROVED"] == 0) {
+				echo ' bgcolor="#FF9999"';
+			}
+			echo '>
 			<td><a href="' . '?id=' . $event["EVENT_ID"] . '"' . '>' . $event["EVENT_NAME"] . '</a></td>
-			<td>'. $event["EVENT_LOCATION"] . '</td>
-			<td>'. $event["EVENT_TIME"] .'</td>
+			<td>' . $event["EVENT_LOCATION"] . '</td>
+			<td>' . $event["EVENT_TIME"] . '</td>
 		</tr>';
 		} ?>
 		</tbody>

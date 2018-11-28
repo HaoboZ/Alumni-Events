@@ -1,3 +1,8 @@
+<!--
+Show event information for single events from events page.
+
+Admins have more control over the event.
+-->
 <?php
 $message = '';
 $event = null;

@@ -1,3 +1,8 @@
+<!--
+Add into to a form that will add alumni information.
+
+Graduation dates go from 1950 to current year.
+-->
 <div class="panel-heading">
 	<h3 class="panel-title" style="font-weight: bold">Your info</h3>
 </div>
@@ -19,7 +24,7 @@
 		<select name="grad_year" id="grad_year" required>
 			<option value="">Select Year</option>
 			<?php
-			for ($i = 1950; $i < date('Y'); $i++) {
+			for ($i = 1950; $i <= date('Y'); $i++) {
 				echo '<option value=' . $i . '>' . $i . '</option>';
 			}
 			?>

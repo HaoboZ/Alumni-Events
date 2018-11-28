@@ -1,3 +1,8 @@
+<!--
+Loads event data from header parameter of id.
+
+Preloads certain fields that allow editing events. Some fields are removed compared to newEvent.
+-->
 <?php
 
 include_once("../database/database_connection.php");
@@ -7,16 +12,16 @@ include_once('../variables.php');
 $message = "";
 if (isset($_POST['editEvent'])) {
 	if (isset($_POST['eventName'])) {
-		$eventName = $_POST['eventName'];
+		$eventName = htmlspecialchars($_POST['eventName']);
 	}
 	if (isset($_POST['description'])) {
-		$description = $_POST['description'];
+		$description = htmlspecialchars($_POST['description']);
 	}
 	// if (isset($_POST['date'])) {
 	// 	$date = str_replace("T"," " ,$_POST['date']);
 	// }
 	if (isset($_POST['location'])) {
-		$location = $_POST['location'];
+		$location = htmlspecialchars($_POST['location']);
 	}
 	// if (isset($_POST['first_name'])) {
 	// 	$firstName = $_POST['first_name'];
@@ -31,7 +36,7 @@ if (isset($_POST['editEvent'])) {
 	// 	$gradYear = intval($_POST['grad_year']);
 	// }
 
-		$query = oci_parse($connect, "UPDATE events SET event_name = :eventName, event_location = :eventLocation, event_info = :eventDescription WHERE event_id = :id");
+	$query = oci_parse($connect, "UPDATE events SET event_name = :eventName, event_location = :eventLocation, event_info = :eventDescription WHERE event_id = :id");
 	oci_bind_by_name($query, ":id", $_GET["id"]);
 	oci_bind_by_name($query, ":eventName", $eventName);
 	// oci_bind_by_name($query, ":eventDate", $date);
@@ -64,9 +69,9 @@ if (!$event)
 		function deleteEvent() {
 			if (confirm('Are you sure you want to delete?'))
 				$.post('../singleEvents/deleteEvent.php', {id:<?php echo $_GET["id"]; ?>}, (e) => {
-					if(e){
+					if (e) {
 						console.log(e);
-					}else{
+					} else {
 						window.location.replace('<?php echo $home; ?>/events/events.php');
 					}
 				});

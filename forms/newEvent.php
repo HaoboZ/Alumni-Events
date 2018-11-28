@@ -1,26 +1,31 @@
+<!--
+Creates a new event.
+
+Admins do not need to add user info.
+-->
 <?php
 $message = "";
 if (isset($_POST['addEvent'])) {
 	if (isset($_POST['eventName'])) {
-		$eventName = $_POST['eventName'];
+		$eventName = htmlspecialchars($_POST['eventName']);
 	}
 	if (isset($_POST['description'])) {
-		$description = $_POST['description'];
+		$description = htmlspecialchars($_POST['description']);
 	}
 	if (isset($_POST['date'])) {
-		$date = str_replace("T"," " ,$_POST['date']);
+		$date = str_replace("T", " ", $_POST['date']);
 	}
 	if (isset($_POST['location'])) {
-		$location = $_POST['location'];
+		$location = htmlspecialchars($_POST['location']);
 	}
 	if (isset($_POST['first_name'])) {
-		$firstName = $_POST['first_name'];
+		$firstName = htmlspecialchars($_POST['first_name']);
 	}
 	if (isset($_POST['last_name'])) {
-		$lastName = $_POST['last_name'];
+		$lastName = htmlspecialchars($_POST['last_name']);
 	}
 	if (isset($_POST['user_email'])) {
-		$email = $_POST['user_email'];
+		$email = htmlspecialchars($_POST['user_email']);
 	}
 	if (isset($_POST['grad_year'])) {
 		$gradYear = intval($_POST['grad_year']);
@@ -37,12 +42,11 @@ if (isset($_POST['addEvent'])) {
 	// $eventId = $row['NUM'] + 1;
 	$eventId = rand(1000000, 9999999);
 
-	if($admin){
+	if ($admin) {
 		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
 		VALUES(:id, :eventName, TO_TIMESTAMP(:eventDate, 'yyyy-mm-dd HH24:mi'), :eventLocation, :eventDescription, current_timestamp, 1)
 	");
-	}
-	else{
+	} else {
 		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved, creator_first_name, creator_last_name, creator_grad_year, creator_email)
 			VALUES(:id, :eventName, TO_TIMESTAMP(:eventDate, 'yyyy-MM-dd HH24:mi'), :eventLocation, :eventDescription, current_timestamp, 0, :firstName, :lastName, :gradYear, :email)
 		");

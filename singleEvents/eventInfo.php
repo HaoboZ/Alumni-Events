@@ -1,3 +1,6 @@
+<!--
+Full reporting for events.
+-->
 <h3><?php echo $event['EVENT_NAME']; ?></h3>
 
 <p>

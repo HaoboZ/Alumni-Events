@@ -1,5 +1,8 @@
+<!--
+Checks cookies for whether admin has logged in.
+Saves variable admin as true if they logged in.
+-->
 <?php
-
 include_once(__DIR__ . "/../database/database_connection.php");
 
 $admin = false;

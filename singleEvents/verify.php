@@ -1,3 +1,8 @@
+<!--
+Post request to verify individual participants.
+
+Returns email of participant on success.
+-->
 <?php
 if ($_SERVER["REQUEST_METHOD"] != "POST")
 	exit;

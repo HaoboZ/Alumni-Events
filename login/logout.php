@@ -1,3 +1,8 @@
+<!--
+Logout admins.
+
+Will instantly redirect to login screen.
+-->
 <?php
 
 include('check.php');

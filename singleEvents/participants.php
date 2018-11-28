@@ -1,3 +1,8 @@
+<!--
+List of participants.
+
+Allows admin to check off verified alumni.
+-->
 <?php
 $query = oci_parse($connect, "
             SELECT * FROM event_participants

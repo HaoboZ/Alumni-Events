@@ -1,5 +1,13 @@
+<!--
+A calendar component that includes all the active events.
+
+Include the php file to add the calendar to the page. The style of the calendar is centered horizontally on the page.
+-->
+
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
       rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
 <script>
 
@@ -77,7 +85,7 @@
 				while ($event = oci_fetch_assoc($query)) {
 					echo '{
 						title: "' . $event["EVENT_NAME"] . '",
-						start: new Date("' . $event["EVENT_TIME"] . '"),
+						start: moment("' . $event["EVENT_TIME"] . '", "DD-MMM-YY hh.mm.ss.SSS A"),
 						url: "events/events.php?id=' . $event["EVENT_ID"] . '"
 					},';
 				}

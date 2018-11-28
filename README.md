@@ -3,17 +3,27 @@
 
 ## Copying files
 
-1. create folder `COEN174` in /webpages/\*\*username\*\*
-2. copy files using `make copy_**username**` (make sure login username is correct)
-3. login to SCU account at linux.scudc.scu.edu
-4. navigate to /webpages/\*\*username\*\*/COEN174
-5. run `make activate`
+From remote login
+
+1. Copy files from https://github.com/HaoboZ/COEN174Project
+2. login to SCU account at linux.scudc.scu.edu
+3. run `mkdir /webpages/**username**/COEN174`
+4. run `make copy username=**username**`
+5. run `cd /webpages/**username**/COEN174`
+6. run `make activate`
+
+From DC computer
+
+1. run `mkdir /webpages/**username**/COEN174`
+2. Copy files from https://github.com/HaoboZ/COEN174Project to COEN174 folder
+3. run `cd /webpages/**username**/COEN174`
+4. run `make activate`
 
 ## Creating SQL Tables
-
+Needs to run from COEN174 folder
 1. run `setup oracle`
-2. run `sqlplus hzhang@db11g`
-3. password is `thisisasecurepassword`
+2. run `sqlplus **username**@db11g`
+3. login
 4. run `@database/database`
 
 ## Website
@@ -37,13 +47,13 @@ students.engr.scu.edu/~\*\*username\*\*/COEN174
     - [x] login
 * admin controls - Alfredo
     - [x] post event
-    - [ ] view full event reports
+    - [x] view full event reports
     - [x] verify alumni
 * fixing up forms - Alfredo
     - [x] add events
-    - [ ] edit events (retrieve date)
-    - [ ] php security, check  formats
+    - [x] edit events (retrieve date)
+    - [x] php security, check formats
     - [x] grad year of alumni
 * styling pages - Alfredo
-    - [ ] time
+    - [x] time
     - [ ] overall style of website

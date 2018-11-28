@@ -1,3 +1,6 @@
+<!--
+Alumni use their information can sign up for events with the code.
+-->
 <?php
 $message2 = '';
 

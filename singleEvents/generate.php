@@ -1,3 +1,8 @@
+<!--
+Generates a code for events that are active.
+
+Will redirect to event page.
+-->
 <?php
 include_once(__DIR__ . "/../database/database_connection.php");
 include_once(__DIR__ . "/../login/check.php");
