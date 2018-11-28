@@ -1,10 +1,12 @@
+-- Creates or recreates tables
+
 DROP TABLE event_participants;
 DROP TABLE event_tags;
 DROP TABLE events;
 DROP TABLE login_session;
 DROP TABLE user_info;
 
-
+-- Stores admin information
 CREATE TABLE user_info (
 	user_email    VARCHAR(200) PRIMARY KEY,
 	user_password VARCHAR(200)
@@ -15,12 +17,14 @@ INSERT INTO user_info VALUES (
 	'$2y$10$cHpf3TzonURXDENRiRF0de1ycSfnM4NJ27sdwyUCf5L.sewDlkCBe'
 );
 
+-- Stores login session information
 CREATE TABLE login_session (
 	session_key VARCHAR(16) PRIMARY KEY,
 	user_email  VARCHAR(200) REFERENCES user_info (user_email),
 	timeout     DATE
 );
 
+-- Stores event info
 CREATE TABLE events (
 	event_id           VARCHAR(16) PRIMARY KEY,
 	event_name         VARCHAR(100),
@@ -50,12 +54,14 @@ INSERT INTO events (
 	1
 );
 
+-- Unused
 CREATE TABLE event_tags (
 	event_id VARCHAR(16) REFERENCES events (event_id),
 	tag      VARCHAR(64),
 	PRIMARY KEY (event_id, tag)
 );
 
+-- Stores event participants
 CREATE TABLE event_participants (
 	event_id        VARCHAR(16) REFERENCES events (event_id),
 	user_email      VARCHAR(200),

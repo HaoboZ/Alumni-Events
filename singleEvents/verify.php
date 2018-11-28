@@ -1,6 +1,10 @@
 <!--
 Post request to verify individual participants.
 
+Parameters
+	id - id of event
+	email - email of participant
+
 Returns email of participant on success.
 -->
 <?php

@@ -1,6 +1,9 @@
 <!--
 Post request, will delete event.
 
+Parameters
+	id - id of event
+
 Returns false on success.
 -->
 <?php
