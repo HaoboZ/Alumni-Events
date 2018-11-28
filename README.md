@@ -1,6 +1,5 @@
 # COEN174Project
 
-
 ## Copying files
 
 From remote login
@@ -20,15 +19,20 @@ From DC computer
 4. run `make activate`
 
 ## Creating SQL Tables
-Needs to run from COEN174 folder
+
+Needs to run from COEN174 folder.
+Databases are connected from /database/database_connection.php.
+Change this file to change the data source.
+
 1. run `setup oracle`
 2. run `sqlplus **username**@db11g`
 3. login
 4. run `@database/database`
 
-## Website
+## Running
 
-students.engr.scu.edu/~\*\*username\*\*/COEN174
+Modify variables.php to the correct username.
+Go to students.engr.scu.edu/~\*\*username\*\*/COEN174
 
 ## TODO
 

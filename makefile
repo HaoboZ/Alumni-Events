@@ -7,4 +7,4 @@ clean:
 	rm -rf /webpages/$(username)/COEN174/*
 
 activate:
-	chmod -R 715 /webpages/$(username)/*
+	chmod -R 755 /webpages/$(username)/*

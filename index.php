@@ -1,3 +1,8 @@
+<!--
+Main page of application.
+
+Contains calendar.
+-->
 <?php
 include_once('login/check.php');
 ?>
