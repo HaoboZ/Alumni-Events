@@ -40,7 +40,7 @@ if (isset($_POST['addEvent'])) {
 
 	// $row = oci_fetch_assoc($sql);
 	// $eventId = $row['NUM'] + 1;
-	$eventId = rand(1000000, 9999999);
+	$eventId = uniqid();
 
 	if ($admin) {
 		$query = oci_parse($connect, "INSERT INTO events(event_id, event_name, event_time, event_location, event_info, creator_date, event_approved)
@@ -66,8 +66,8 @@ if (isset($_POST['addEvent'])) {
 // echo $curDate;
 
 	if (!oci_execute($query)) exit;
-	$message = $_POST["grad_year"];
-	//$message = '<div class="alert alert-success">Event successfuly created!</div>';
+	//$message = $_POST["grad_year"];
+	$message = '<div class="alert alert-success">Event successfuly created!</div>';
 }
 ?>
 
