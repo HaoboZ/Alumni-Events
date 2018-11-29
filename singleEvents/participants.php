@@ -12,7 +12,7 @@ $query = oci_parse($connect, "
 oci_bind_by_name($query, ":event_id", $event["EVENT_ID"]);
 if (!oci_execute($query)) exit;
 
-echo "<br><br>Verified: " . oci_fetch_assoc($query)["COUNT(*)"] . ", refresh to update. <br><br>";
+echo "<br><br>Number of verified alumni participants: " . oci_fetch_assoc($query)["COUNT(*)"] . " (refresh to update) <br><br>";
 
 $query = oci_parse($connect, "
             SELECT * FROM event_participants
