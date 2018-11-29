@@ -4,6 +4,16 @@ List of participants.
 Allows admin to check off verified alumni.
 -->
 <?php
+
+$query = oci_parse($connect, "
+            SELECT COUNT(*) FROM event_participants
+            WHERE event_id = :event_id AND verified = 1
+        ");
+oci_bind_by_name($query, ":event_id", $event["EVENT_ID"]);
+if (!oci_execute($query)) exit;
+
+echo "<br><br>Verified: " . oci_fetch_assoc($query)["COUNT(*)"] . ", refresh to update. <br><br>";
+
 $query = oci_parse($connect, "
             SELECT * FROM event_participants
             WHERE event_id = :event_id
@@ -19,6 +29,7 @@ $participant = oci_fetch_assoc($query);
 if (!$participant)
 	echo '<p>None</p>';
 else {
+
 	echo '
 	<script>
 		function verification ( email ) {
