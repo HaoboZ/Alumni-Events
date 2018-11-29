@@ -19,6 +19,15 @@ if (isset($_GET['id'])) {
 <head>
 	<?php include("../content/title.php"); ?>
 	<script src="filter.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script>
+		$(document).ready(function (){
+			$(".time").each(function(){
+				var date = moment($(this).html(), "DD-MMM-YY hh.mm.ss.SSS A");
+				$(this).text(date.format("MM-DD-YYYY hh:mm A"));
+			});
+		});
+	</script>
 </head>
 <body>
 <br/>
@@ -72,7 +81,7 @@ if (isset($_GET['id'])) {
 			echo '>
 			<td><a href="' . '?id=' . $event["EVENT_ID"] . '"' . '>' . $event["EVENT_NAME"] . '</a></td>
 			<td>' . $event["EVENT_LOCATION"] . '</td>
-			<td>' . $event["EVENT_TIME"] . '</td>
+			<td class="time">' . $event["EVENT_TIME"] . '</td>
 		</tr>';
 		} ?>
 		</tbody>

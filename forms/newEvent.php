@@ -106,7 +106,7 @@ if (isset($_POST['addEvent'])) {
 			</div>
 			<div class="panel-body">
 				<div class="form-group input-group date" id='date'>
-					<label for="date">Event date & time</label>
+					<label for="date">Event date & time</label><br>
 					<input type="datetime-local" name="date" id="date" class="form-control" required/>
 				</div>
 				<!--<div class="form-group input-group time" id='time'>

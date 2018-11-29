@@ -17,9 +17,9 @@ if (isset($_POST['editEvent'])) {
 	if (isset($_POST['description'])) {
 		$description = htmlspecialchars($_POST['description']);
 	}
-	// if (isset($_POST['date'])) {
-	// 	$date = str_replace("T"," " ,$_POST['date']);
-	// }
+	if (isset($_POST['date'])) {
+		$date = str_replace("T"," " ,$_POST['date']);
+	}
 	if (isset($_POST['location'])) {
 		$location = htmlspecialchars($_POST['location']);
 	}
@@ -36,10 +36,10 @@ if (isset($_POST['editEvent'])) {
 	// 	$gradYear = intval($_POST['grad_year']);
 	// }
 
-	$query = oci_parse($connect, "UPDATE events SET event_name = :eventName, event_location = :eventLocation, event_info = :eventDescription WHERE event_id = :id");
+	$query = oci_parse($connect, "UPDATE events SET event_name = :eventName, event_location = :eventLocation, event_info = :eventDescription, event_time = :eventDate WHERE event_id = :id");
 	oci_bind_by_name($query, ":id", $_GET["id"]);
 	oci_bind_by_name($query, ":eventName", $eventName);
-	// oci_bind_by_name($query, ":eventDate", $date);
+	oci_bind_by_name($query, ":eventDate", $date);
 
 	oci_bind_by_name($query, ":eventLocation", $location);
 	oci_bind_by_name($query, ":eventDescription", $description);
@@ -61,11 +61,19 @@ if (!$event)
 	$message = "<div class='alert alert-danger'>No event that matches id</div>";
 ?>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include("../content/title.php"); ?>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 	<script>
+		$(document).ready(function (){
+			let date = moment("<?php echo $event["EVENT_TIME"] ?>", "DD-MMM-YY hh.mm.ss.SSS A");
+			$('#date').val(date.format("YYYY-MM-DDTHH:mm"));
+			//console.log(date.format("YYYY-MM-DDTHH:mm"));
+		});
 		function deleteEvent() {
 			if (confirm('Are you sure you want to delete?'))
 				$.post('../singleEvents/deleteEvent.php', {id:<?php echo $_GET["id"]; ?>}, (e) => {
@@ -107,9 +115,9 @@ if (!$event)
 				<h3 class="panel-title" style="font-weight: bold">Event Time & Location</h3>
 			</div>
 			<div class="panel-body">
-				<div class="form-group input-group date" id='date'>
-					<label>Event date</label>
-					<?php echo $event['EVENT_TIME']; ?>
+				<div class="form-group input-group date">
+					<label for="date">Event date</label><br>
+					<input type="datetime-local" name="date" id="date" class="form-control" required/>
 				</div>
 				<div class="form-group">
 					<label for="location">Location of event</label>

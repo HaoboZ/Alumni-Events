@@ -56,8 +56,10 @@ Go to students.engr.scu.edu/~\*\*username\*\*/COEN174
 * fixing up forms - Alfredo
     - [x] add events
     - [x] edit events (retrieve date)
-    - [x] php security, check formats
+    - [ ] php security, check formats
     - [x] grad year of alumni
 * styling pages - Alfredo
-    - [x] time
+    - [x] time format
     - [ ] overall style of website
+* database - Alfredo
+    - [x] truly unique ids
